@@ -1,0 +1,56 @@
+Table units {
+  id integer [primary key]
+  name text
+}
+
+Table items {
+  id integer [primary key]
+  name text
+  description text
+  price float
+  unit_id integer
+}
+
+Table sales {
+  id integer [primary key]
+  date string
+  total float
+  discount float
+  grand_total float
+  description text
+}
+
+Table sale_items {
+  id integer [primary key]
+  sale_id integer
+  item_id integer
+  quantity float
+  price float
+  discount float
+  total float
+}
+
+Table returns {
+  id integer [primary key]
+  date string
+  total float
+  discount float
+  grand_total float
+  description text
+}
+
+Table return_items {
+  id integer [primary key]
+  return_id integer
+  item_id integer
+  quantity float
+  price float
+  discount float
+  total float
+}
+
+Ref: items.unit_id > units.id
+Ref: sale_items.sale_id > sales.id
+Ref: sale_items.item_id > items.id
+Ref: return_items.return_id > returns.id
+Ref: return_items.item_id > items.id
