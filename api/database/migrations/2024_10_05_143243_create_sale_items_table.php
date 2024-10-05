@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->double('quantity', 15, 2);
             $table->double('price', 15, 2);
-            $table->double('dicount', 15, 2);
+            $table->double('discount', 15, 2);
             $table->double('total', 15, 2);
             $table->softDeletes();
             $table->timestamps();
