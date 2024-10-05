@@ -40,9 +40,9 @@ Route::prefix('/v1')->group(
         Route::controller(RefundController::class)->group(function () {
             Route::get('/refunds', 'index');
             Route::post('/refunds', 'store');
-            Route::get('/refunds/{sale}', 'show');
-            Route::put('/refunds/{sale}', 'update');
-            Route::delete('/refunds/{sale}', 'destroy');
+            Route::get('/refunds/{refund}', 'show');
+            Route::put('/refunds/{refund}', 'update');
+            Route::delete('/refunds/{refund}', 'destroy');
         });
     }
 );
