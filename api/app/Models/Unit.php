@@ -11,6 +11,8 @@ class Unit extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ["name"];
+
     public function items(): HasMany
     {
         return $this->hasMany(Item::class);
