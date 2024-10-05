@@ -12,6 +12,7 @@ class SaleItem extends Model
     use HasFactory, SoftDeletes;
 
     protected $with = ['item'];
+    protected $fillable = ["quantity", "price", "discount", "total", "item_id"];
 
     public function sale(): BelongsTo
     {
