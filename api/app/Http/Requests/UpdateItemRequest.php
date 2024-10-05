@@ -28,7 +28,7 @@ class UpdateItemRequest extends FormRequest
                 'max:255',
                 Rule::unique('items')->ignore($this->item->id),
             ],
-            'description' => 'present|nullable',
+            'description' => 'present|string|nullable',
             'price' => 'required|numeric|min:0',
             'unit_id' => 'required|exists:units,id'
         ];
