@@ -9,15 +9,22 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::prefix('/v1')->group(
+    function () {
+        Route::controller(UnitController::class)->group(function () {
+            Route::get('/units', 'index');
+            Route::post('/units', 'store');
+            Route::get('/units/{unit}', 'show');
+            Route::put('/units/{unit}', 'update');
+            Route::delete('/units/{unit}', 'destroy');
+        });
 
-Route::get('/units', [UnitController::class, 'index']);
-Route::post('/units', [UnitController::class, 'store']);
-Route::get('/units/{unit}', [UnitController::class, 'show']);
-Route::put('/units/{unit}', [UnitController::class, 'update']);
-Route::delete('/units/{unit}', [UnitController::class, 'destroy']);
-
-Route::get('/items', [ItemController::class, 'index']);
-Route::post('/items', [ItemController::class, 'store']);
-Route::get('/items/{item}', [ItemController::class, 'show']);
-Route::put('/items/{item}', [ItemController::class, 'update']);
-Route::delete('/items/{item}', [ItemController::class, 'destroy']);
+        Route::controller(ItemController::class)->group(function () {
+            Route::get('/items', 'index');
+            Route::post('/items', 'store');
+            Route::get('/items/{item}', 'show');
+            Route::put('/items/{item}', 'update');
+            Route::delete('/items/{item}', 'destroy');
+        });
+    }
+);
