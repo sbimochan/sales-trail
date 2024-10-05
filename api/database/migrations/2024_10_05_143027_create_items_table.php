@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->double('price', 15, 2)->default('0.00');
-            $table->softDeletes();
             $table->timestamps();
 
             $table->foreignId('unit_id')->constrained();
