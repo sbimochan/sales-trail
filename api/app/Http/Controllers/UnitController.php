@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Unit;
 use App\Http\Requests\StoreUnitRequest;
 
@@ -52,7 +53,11 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        $unit->delete();
+        try {
+            $unit->delete();
+        } catch (Exception $error) {
+            return response()->json(['message' => $error->getMessage()], 409);
+        }
 
         return $unit;
     }
