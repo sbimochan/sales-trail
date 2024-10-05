@@ -13,3 +13,4 @@ Route::get('/units', [UnitController::class, 'index']);
 Route::post('/units', [UnitController::class, 'store']);
 Route::get('/units/{unit}', [UnitController::class, 'show']);
 Route::put('/units/{unit}', [UnitController::class, 'update']);
+Route::delete('/units/{unit}', [UnitController::class, 'destroy']);
