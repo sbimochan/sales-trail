@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\RefundController;
+use App\Http\Controllers\SaleController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -25,6 +27,22 @@ Route::prefix('/v1')->group(
             Route::get('/items/{item}', 'show');
             Route::put('/items/{item}', 'update');
             Route::delete('/items/{item}', 'destroy');
+        });
+
+        Route::controller(SaleController::class)->group(function () {
+            Route::get('/sales', 'index');
+            Route::post('/sales', 'store');
+            Route::get('/sales/{sale}', 'show');
+            Route::put('/sales/{sale}', 'update');
+            Route::delete('/sales/{sale}', 'destroy');
+        });
+
+        Route::controller(RefundController::class)->group(function () {
+            Route::get('/refunds', 'index');
+            Route::post('/refunds', 'store');
+            Route::get('/refunds/{sale}', 'show');
+            Route::put('/refunds/{sale}', 'update');
+            Route::delete('/refunds/{sale}', 'destroy');
         });
     }
 );

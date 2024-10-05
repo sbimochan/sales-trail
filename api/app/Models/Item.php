@@ -11,6 +11,7 @@ class Item extends Model
 {
     use HasFactory;
 
+    protected $with = ['unit'];
     protected $fillable = ["name", "description", "price", "unit_id"];
 
     public function unit(): BelongsTo

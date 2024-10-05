@@ -11,8 +11,16 @@ class Sale extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['sale_items'];
+
     public function sale_items(): HasMany
     {
         return $this->hasMany(SaleItem::class);
+    }
+
+    public function delete()
+    {
+        $this->sale_items()->delete();
+        parent::delete();
     }
 }

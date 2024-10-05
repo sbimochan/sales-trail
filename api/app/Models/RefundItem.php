@@ -11,6 +11,8 @@ class RefundItem extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['item'];
+
     public function refund(): BelongsTo
     {
         return $this->belongsTo(Refund::class);

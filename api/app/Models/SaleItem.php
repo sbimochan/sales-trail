@@ -11,6 +11,8 @@ class SaleItem extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = ['item'];
+
     public function sale(): BelongsTo
     {
         return $this->belongsTo(Sale::class);
