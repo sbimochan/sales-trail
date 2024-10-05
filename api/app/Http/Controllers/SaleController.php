@@ -26,7 +26,7 @@ class SaleController extends Controller
         $data = $request->validated();
 
         $discount = $data['discount'];
-        $sale_items = $data['sale_items'];
+        $sale_items = $data['items'];
         $total = 0;
 
         DB::beginTransaction();
@@ -80,7 +80,7 @@ class SaleController extends Controller
         $data = $request->validated();
 
         $discount = $data['discount'];
-        $sale_items = $data['sale_items'];
+        $sale_items = $data['items'];
         $total = 0;
 
         DB::beginTransaction();

@@ -26,11 +26,11 @@ class StoreRefundRequest extends FormRequest
             'discount' => 'required|numeric',
             'description' => 'present|string|nullable',
 
-            'refund_items' => 'array|required|min:1',
-            'refund_items.*.item_id' => 'required|exists:items,id',
-            'refund_items.*.price' => 'required|numeric',
-            'refund_items.*.quantity' => 'required|numeric',
-            'refund_items.*.discount' => 'required|numeric',
+            'items' => 'array|required|min:1',
+            'items.*.item_id' => 'required|exists:items,id',
+            'items.*.price' => 'required|numeric',
+            'items.*.quantity' => 'required|numeric',
+            'items.*.discount' => 'required|numeric',
         ];
     }
 }

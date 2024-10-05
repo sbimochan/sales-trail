@@ -26,11 +26,11 @@ class StoreSaleRequest extends FormRequest
             'discount' => 'required|numeric',
             'description' => 'present|string|nullable',
 
-            'sale_items' => 'array|required|min:1',
-            'sale_items.*.item_id' => 'required|exists:items,id',
-            'sale_items.*.price' => 'required|numeric',
-            'sale_items.*.quantity' => 'required|numeric',
-            'sale_items.*.discount' => 'required|numeric',
+            'items' => 'array|required|min:1',
+            'items.*.item_id' => 'required|exists:items,id',
+            'items.*.price' => 'required|numeric',
+            'items.*.quantity' => 'required|numeric',
+            'items.*.discount' => 'required|numeric',
         ];
     }
 }

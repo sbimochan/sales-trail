@@ -26,7 +26,7 @@ class RefundController extends Controller
         $data = $request->validated();
 
         $discount = $data['discount'];
-        $refund_items = $data['refund_items'];
+        $refund_items = $data['items'];
         $total = 0;
 
         DB::beginTransaction();
@@ -80,7 +80,7 @@ class RefundController extends Controller
         $data = $request->validated();
 
         $discount = $data['discount'];
-        $refund_items = $data['refund_items'];
+        $refund_items = $data['items'];
         $total = 0;
 
         DB::beginTransaction();
