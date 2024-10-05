@@ -12,9 +12,16 @@ class Refund extends Model
     use HasFactory, SoftDeletes;
 
     protected $with = ['refund_items'];
+    protected $fillable = ["date", "description", "total", "discount", "grand_total"];
 
     public function refund_items(): HasMany
     {
         return $this->hasMany(RefundItem::class);
+    }
+
+    public function delete()
+    {
+        $this->refund_items()->delete();
+        parent::delete();
     }
 }
