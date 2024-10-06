@@ -1,18 +1,21 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RefundController;
 use App\Http\Controllers\SaleController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::post('/v1/login', [AuthController::class, 'login']);
 
-Route::prefix('/v1')->group(
+Route::prefix('/v1')->middleware('auth:sanctum')->group(
     function () {
+        Route::controller(AuthController::class)->group(function () {
+            Route::post('/logout', 'logout');
+            Route::get('/user', 'user');
+        });
+
         Route::controller(UnitController::class)->group(function () {
             Route::get('/units', 'index');
             Route::post('/units', 'store');
