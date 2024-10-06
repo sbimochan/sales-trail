@@ -24,10 +24,7 @@ class AuthController extends Controller
                 'token' => $token->plainTextToken
             ];
         } else {
-            return [
-                'status' => 401,
-                'message' => 'These credentials do not match our records.'
-            ];
+            return response()->json(['message' => 'These credentials do not match our records.'], 401);
         }
     }
 
