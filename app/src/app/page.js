@@ -1,5 +1,6 @@
 'use client';
-import { Button } from '@/components/ui/button';
+import dynamic from 'next/dynamic';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,13 +21,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-import {
-  RulerSquareIcon,
-  ArchiveIcon,
-  ExitIcon,
-  FilePlusIcon,
-  FileMinusIcon,
-} from '@radix-ui/react-icons';
+import Sidebar from '@/components/layout/sidebar';
 
 const invoices = [
   {
@@ -73,26 +68,10 @@ const invoices = [
   },
 ];
 
-export default function Home() {
+function Home() {
   return (
     <div className="flex">
-      <div className="min-h-lvh max-w-72 border-r px-3 py-10">
-        <Button variant="ghost" className="mb-1.5 min-w-full justify-start py-2">
-          <RulerSquareIcon className="mr-2 h-4 w-4" /> Units
-        </Button>
-        <Button variant="ghost" className="mb-1.5 min-w-full justify-start py-2">
-          <ArchiveIcon className="mr-2 h-4 w-4" /> Products
-        </Button>
-        <Button variant="ghost" className="mb-1.5 min-w-full justify-start py-2">
-          <FilePlusIcon className="mr-2 h-4 w-4" /> Sales
-        </Button>
-        <Button variant="ghost" className="mb-1.5 min-w-full justify-start py-2">
-          <FileMinusIcon className="mr-2 h-4 w-4" /> Returns
-        </Button>
-        <Button variant="ghost" className="mb-1.5 min-w-full justify-start py-2">
-          <ExitIcon className="mr-2 h-4 w-4" /> Sign Out
-        </Button>
-      </div>
+      <Sidebar />
 
       <div className="min-h-lvh w-full px-10 py-10">
         <Breadcrumb>
@@ -142,3 +121,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(Home), { ssr: false });
