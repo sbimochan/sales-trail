@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaginationRequest;
 use Exception;
 use App\Models\Unit;
 use App\Http\Requests\StoreUnitRequest;
@@ -11,9 +12,15 @@ class UnitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PaginationRequest $request)
     {
-        return Unit::paginate(10);
+        $data = $request->validated();
+
+        $q = $data['q'] ?? "";
+        $page = $data['page'] ?? 1;
+        $limit = $data['limit'] ?? 10;
+
+        return Unit::where('name', 'like', "%$q%")->paginate($limit, ['*'], 'page', $page);
     }
 
     /**
