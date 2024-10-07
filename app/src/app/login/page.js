@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import dynamic from 'next/dynamic';
+
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -29,7 +31,7 @@ const schema = z.object({
   password: z.string().min(1, { message: 'Password is required' }),
 });
 
-export default function Login() {
+function Login() {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -53,6 +55,7 @@ export default function Login() {
     refetchOnWindowFocus: false,
     queryFn: getAuthenticatedUser,
     onSuccess: () => (window.location.href = '/'),
+    enabled: Boolean(localStorage.getItem('token')),
   });
 
   if (isFetching || data) {
@@ -121,3 +124,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(Login), { ssr: false });
