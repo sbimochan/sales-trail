@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useMutation } from 'react-query';
 import { logout } from '@/services/auth.service';
+import { usePathname } from 'next/navigation';
 
 const items = [
   {
@@ -46,7 +47,7 @@ const items = [
 ];
 
 export default function Sidebar() {
-  const pathname = window.location.pathname;
+  const pathname = usePathname();
 
   const { isLoading, mutate, data } = useMutation(logout, {
     onSettled: () => {
@@ -56,7 +57,7 @@ export default function Sidebar() {
   });
 
   return (
-    <div className="min-h-lvh max-w-72 border-r px-3 py-10" suppressHydrationWarning>
+    <div className="min-h-lvh max-w-72 border-r px-3 py-10">
       {items.map(({ name, Icon, href }) => {
         const className = href === pathname ? 'bg-accent' : '';
 
