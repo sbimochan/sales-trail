@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useDebounce } from '@uidotdev/usehooks';
 import { useAuthUser } from '@/hooks/use-is-authenticated';
 
-import { deleteUnit, getUnits } from '@/services/unit.service';
+import { deleteItem, getItems } from '@/services/item.service';
 
 import {
   Breadcrumb,
@@ -32,6 +32,8 @@ import {
   DoubleArrowRightIcon,
   Cross2Icon,
 } from '@radix-ui/react-icons';
+import { PlusIcon } from 'lucide-react';
+
 import {
   flexRender,
   useReactTable,
@@ -70,10 +72,9 @@ import {
 
 import Alert from '@/components/layout/alert';
 import Sidebar from '@/components/layout/sidebar';
-import { PlusIcon } from 'lucide-react';
-import { UnitDialog } from '@/components/units/dialog';
+import { ItemDialog } from '@/components/items/dialog';
 
-function Unit() {
+function Item() {
   const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
@@ -108,7 +109,7 @@ function Unit() {
       const limit = pagination.pageSize;
       const page = pagination.pageIndex + 1;
 
-      return getUnits({ page, limit, query: debouncedQuery });
+      return getItems({ page, limit, query: debouncedQuery });
     },
   });
 
@@ -133,6 +134,27 @@ function Unit() {
         accessorKey: 'name',
         header: 'Name',
         cell: ({ row }) => <div>{row.getValue('name')}</div>,
+      },
+      {
+        accessorKey: 'description',
+        header: 'Description',
+        cell: ({ row }) => <div>{row.getValue('description')}</div>,
+      },
+      {
+        accessorKey: 'unit',
+        header: 'Unit',
+        cell: ({ row }) => <div>{row.original?.unit?.name}</div>,
+      },
+      {
+        accessorKey: 'price',
+        header: 'Rate',
+        cell: ({ row }) => (
+          <div>
+            {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
+              row.getValue('price'),
+            )}
+          </div>
+        ),
       },
       {
         id: 'actions',
@@ -186,12 +208,12 @@ function Unit() {
     onPaginationChange: setPagination,
   });
 
-  const { mutate: onDelete } = useMutation(deleteUnit, {
+  const { mutate: onDelete } = useMutation(deleteItem, {
     onSuccess: () => {
       deleteRowRef.current = deleteRow;
 
       refetch();
-      toast({ title: `Unit "${deleteRowRef.current?.name}" successfully deleted.` });
+      toast({ title: `Item "${deleteRowRef.current?.name}" successfully deleted.` });
 
       setDeleteRow(null);
     },
@@ -231,7 +253,7 @@ function Unit() {
         description={`This action cannot be undone. This will permanently delete ${deleteRow?.name || deleteRowRef.current?.name} from our servers.`}
       />
 
-      <UnitDialog
+      <ItemDialog
         open={open || Boolean(editRow)}
         row={editRow}
         refetch={refetch}
@@ -246,15 +268,15 @@ function Unit() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Units</BreadcrumbPage>
+              <BreadcrumbPage>Items</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
         <div className="my-4">
-          <h1 className="text-2xl font-bold">Units ({data?.data?.total ?? 0})</h1>
+          <h1 className="text-2xl font-bold">Items ({data?.data?.total ?? 0})</h1>
           <p className="text-xs text-gray-600">
-            Use the filter input to quickly search and display specific units by name, status, or
+            Use the filter input to quickly search and display specific items by name, status, or
             other relevant criteria.
           </p>
         </div>
@@ -264,7 +286,7 @@ function Unit() {
             <div className="relative">
               <Input
                 className="max-w-sm"
-                placeholder="Filter units..."
+                placeholder="Filter items..."
                 value={query ?? ''}
                 onChange={(event) => {
                   setPagination({ pageIndex: 0, pageSize: pagination.pageSize });
@@ -310,7 +332,7 @@ function Unit() {
               </DropdownMenu>
 
               <Button className="ml-2" onClick={() => setOpen(true)}>
-                <PlusIcon className="h-4 w-4" /> Add Unit
+                <PlusIcon className="h-4 w-4" /> Add Item
               </Button>
             </div>
           </div>
@@ -430,4 +452,4 @@ function Unit() {
   );
 }
 
-export default dynamic(() => Promise.resolve(Unit), { ssr: false });
+export default dynamic(() => Promise.resolve(Item), { ssr: false });

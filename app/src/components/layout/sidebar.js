@@ -30,9 +30,9 @@ const items = [
     href: '/units',
   },
   {
-    name: 'Products',
+    name: 'Items',
     Icon: ArchiveIcon,
-    href: '/products',
+    href: '/items',
   },
   {
     name: 'Sales',

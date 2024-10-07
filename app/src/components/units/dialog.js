@@ -96,9 +96,12 @@ export function UnitDialog({ open = true, row = null, refetch = () => {}, onClos
         </Form>
 
         <DialogFooter>
-          <Button onClick={handleSubmit(mutate)}>Save</Button>
           <Button variant="outline" onClick={onClose}>
             Cancel
+          </Button>
+
+          <Button className="mb-1" onClick={handleSubmit(mutate)}>
+            Save
           </Button>
         </DialogFooter>
       </DialogContent>

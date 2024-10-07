@@ -19,7 +19,7 @@ export async function createUnit({ name }) {
 }
 
 export async function updateUnit({ name, id }) {
-  const data = await axios.put(`/units/${id}`, { name, id });
+  const data = await axios.put(`/units/${id}`, { name });
 
   return data;
 }
