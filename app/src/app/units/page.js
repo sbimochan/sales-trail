@@ -1,14 +1,15 @@
 'use client';
 import dynamic from 'next/dynamic';
 
-import { useQuery } from 'react-query';
-import { useState, useEffect, useMemo } from 'react';
+import { useMutation, useQuery } from 'react-query';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
+import { useToast } from '@/hooks/use-toast';
 import { useDebounce } from '@uidotdev/usehooks';
 import { useAuthUser } from '@/hooks/use-is-authenticated';
 
-import { getUnits } from '@/services/unit.service';
+import { deleteUnit, getUnits } from '@/services/unit.service';
 
 import {
   Breadcrumb,
@@ -67,9 +68,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
+import Alert from '@/components/layout/alert';
 import Sidebar from '@/components/layout/sidebar';
+import { PlusIcon } from 'lucide-react';
+import { UnitDialog } from '@/components/units/dialog';
 
 function Unit() {
+  const { toast } = useToast();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -89,7 +94,13 @@ function Unit() {
 
   const { isLoading, data: auth } = useAuthUser();
 
-  const { data } = useQuery({
+  const [open, setOpen] = useState(false);
+  const [editRow, setEditRow] = useState(null);
+  const [deleteRow, setDeleteRow] = useState(null);
+
+  const deleteRowRef = useRef(null);
+
+  const { data, refetch } = useQuery({
     queryKey: [pagination, debouncedQuery],
     enabled: true,
     keepPreviousData: true,
@@ -116,12 +127,12 @@ function Unit() {
       {
         accessorKey: 'id',
         header: 'ID',
-        cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
+        cell: ({ row }) => <div>{row.getValue('id')}</div>,
       },
       {
         accessorKey: 'name',
         header: 'Name',
-        cell: ({ row }) => <div className="capitalize">{row.getValue('name')}</div>,
+        cell: ({ row }) => <div>{row.getValue('name')}</div>,
       },
       {
         id: 'actions',
@@ -138,10 +149,10 @@ function Unit() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => edit(row)}>
+                <DropdownMenuItem onClick={() => setEditRow(row.original)}>
                   <Pencil2Icon className="mr-2 h-4 w-4" /> Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => destroy(row)}>
+                <DropdownMenuItem onClick={() => setDeleteRow(row.original)}>
                   <TrashIcon className="mr-2 h-4 w-4" /> Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -175,6 +186,30 @@ function Unit() {
     onPaginationChange: setPagination,
   });
 
+  const { mutate: onDelete } = useMutation(deleteUnit, {
+    onSuccess: () => {
+      deleteRowRef.current = deleteRow;
+
+      refetch();
+      toast({ title: `Unit "${deleteRowRef.current?.name}" successfully deleted.` });
+
+      setDeleteRow(null);
+    },
+    onError: (error) => {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: error?.response?.data?.message,
+      });
+    },
+  });
+
+  const onClear = () => {
+    setDeleteRow(null);
+    setEditRow(null);
+    setOpen(false);
+  };
+
   if (isLoading || !auth) {
     return (
       <div className="flex h-lvh items-center justify-center space-x-4">
@@ -188,6 +223,20 @@ function Unit() {
   return (
     <div className="flex">
       <Sidebar />
+
+      <Alert
+        open={Boolean(deleteRow)}
+        onCancel={onClear}
+        onContinue={() => onDelete(deleteRow)}
+        description={`This action cannot be undone. This will permanently delete ${deleteRow?.name || deleteRowRef.current?.name} from our servers.`}
+      />
+
+      <UnitDialog
+        open={open || Boolean(editRow)}
+        row={editRow}
+        refetch={refetch}
+        onClose={onClear}
+      />
 
       <div className="min-h-lvh w-full px-10 py-10">
         <Breadcrumb>
@@ -211,7 +260,7 @@ function Unit() {
         </div>
 
         <div className="w-full">
-          <div className="flex items-center py-4">
+          <div className="flex items-center justify-between py-4">
             <div className="relative">
               <Input
                 className="max-w-sm"
@@ -233,31 +282,37 @@ function Unit() {
               </div>
             </div>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
-                  Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
+            <div className="flex justify-center items-center">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">
+                    Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
 
-              <DropdownMenuContent align="end">
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => {
-                    return (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {column.id}
-                      </DropdownMenuCheckboxItem>
-                    );
-                  })}
-              </DropdownMenuContent>
-            </DropdownMenu>
+                <DropdownMenuContent align="end">
+                  {table
+                    .getAllColumns()
+                    .filter((column) => column.getCanHide())
+                    .map((column) => {
+                      return (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                        >
+                          {column.id}
+                        </DropdownMenuCheckboxItem>
+                      );
+                    })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <Button className="ml-2" onClick={() => setOpen(true)}>
+                <PlusIcon className="h-4 w-4" /> Add Unit
+              </Button>
+            </div>
           </div>
 
           <div className="rounded-md border">
