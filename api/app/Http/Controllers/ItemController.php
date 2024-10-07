@@ -6,15 +6,25 @@ use Exception;
 use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
+use App\Http\Requests\PaginationRequest;
 
 class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PaginationRequest $request)
     {
-        return Item::paginate(10);
+        $data = $request->validated();
+
+        $q = $data['q'] ?? "";
+        $page = $data['page'] ?? 1;
+        $limit = $data['limit'] ?? 10;
+
+        return Item::where('name', 'like', "%$q%")
+            ->orWhere('description', 'like', "%$q%")
+            ->orWhere('price', 'like', "%$q%")
+            ->paginate($limit, ['*'], 'page', $page);
     }
 
     /**
