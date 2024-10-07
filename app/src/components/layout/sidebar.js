@@ -49,11 +49,7 @@ export default function Sidebar() {
   const pathname = window.location.pathname;
 
   const { isLoading, mutate, data } = useMutation(logout, {
-    onSuccess: () => {
-      localStorage.clear();
-      window.location.href = '/login';
-    },
-    onError: () => {
+    onSettled: () => {
       localStorage.clear();
       window.location.href = '/login';
     },
