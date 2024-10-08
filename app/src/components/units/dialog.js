@@ -28,7 +28,7 @@ const schema = z.object({
 
 const DEFAULT_UNIT = { id: '', name: '' };
 
-export function UnitDialog({ open = true, row = null, refetch = () => { }, onClose = () => { } }) {
+export function UnitDialog({ open = true, row = null, refetch = () => {}, onClose = () => {} }) {
   const { toast } = useToast();
 
   const form = useForm({
