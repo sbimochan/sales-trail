@@ -372,9 +372,17 @@ function Item() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={columns.length} className="h-24 text-center">
-                      No results.
-                    </TableCell>
+                    {isFetching ? (
+                      columns.map(() => (
+                        <TableCell>
+                          <Skeleton className="h-8 w-full" />
+                        </TableCell>
+                      ))
+                    ) : (
+                      <TableCell colSpan={columns.length} className="h-24 text-center">
+                        No results.
+                      </TableCell>
+                    )}
                   </TableRow>
                 )}
               </TableBody>
