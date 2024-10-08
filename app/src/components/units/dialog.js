@@ -16,6 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Form, FormField } from '@/components/ui/form';
+import { ReloadIcon } from '@radix-ui/react-icons';
 
 import { useToast } from '@/hooks/use-toast';
 import { createUnit, updateUnit } from '@/services/unit.service';
@@ -27,7 +28,7 @@ const schema = z.object({
 
 const DEFAULT_UNIT = { id: '', name: '' };
 
-export function UnitDialog({ open = true, row = null, refetch = () => {}, onClose = () => {} }) {
+export function UnitDialog({ open = true, row = null, refetch = () => { }, onClose = () => { } }) {
   const { toast } = useToast();
 
   const form = useForm({
@@ -42,7 +43,7 @@ export function UnitDialog({ open = true, row = null, refetch = () => {}, onClos
     reset(defaultValue);
   }, [row, reset, open]);
 
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (data) => {
       const mutation = Boolean(data.id) ? updateUnit : createUnit;
       return mutation(data);
@@ -100,8 +101,8 @@ export function UnitDialog({ open = true, row = null, refetch = () => {}, onClos
             Cancel
           </Button>
 
-          <Button className="mb-1" onClick={handleSubmit(mutate)}>
-            Save
+          <Button className="mb-1" onClick={handleSubmit(mutate)} disabled={isLoading}>
+            {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />} Save
           </Button>
         </DialogFooter>
       </DialogContent>
