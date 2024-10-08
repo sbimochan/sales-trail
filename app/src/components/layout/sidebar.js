@@ -6,7 +6,6 @@ import {
   ExitIcon,
   ArchiveIcon,
   FilePlusIcon,
-  DashboardIcon,
   FileMinusIcon,
   RulerSquareIcon,
   ReloadIcon,
@@ -19,11 +18,6 @@ import { logout } from '@/services/auth.service';
 import { usePathname } from 'next/navigation';
 
 const items = [
-  {
-    name: 'Dashboard',
-    Icon: DashboardIcon,
-    href: '/',
-  },
   {
     name: 'Units',
     Icon: RulerSquareIcon,
@@ -59,7 +53,7 @@ export default function Sidebar() {
   return (
     <div className="min-h-lvh max-w-72 border-r px-3 py-10">
       {items.map(({ name, Icon, href }) => {
-        const className = href === pathname ? 'bg-accent' : '';
+        const className = pathname.includes(href) ? 'bg-accent' : '';
 
         return (
           <Button
