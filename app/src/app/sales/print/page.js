@@ -26,7 +26,7 @@ import { cn } from '@/lib/utils';
 import { PrinterIcon } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 
-function Item() {
+function Print() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -250,4 +250,4 @@ function Item() {
   );
 }
 
-export default dynamic(() => Promise.resolve(Item), { ssr: false });
+export default dynamic(() => Promise.resolve(Print), { ssr: false });
