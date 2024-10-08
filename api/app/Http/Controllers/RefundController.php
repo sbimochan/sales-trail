@@ -7,15 +7,25 @@ use App\Models\Refund;
 use App\Models\RefundItem;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreRefundRequest;
+use App\Http\Requests\PaginationRequest;
 
 class RefundController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PaginationRequest $request)
     {
-        return Refund::orderBy('created_at', 'desc')->paginate(10);
+        $data = $request->validated();
+
+        $q = $data['q'] ?? "";
+        $page = $data['page'] ?? 1;
+        $limit = $data['limit'] ?? 10;
+
+        return Refund::orderBy('created_at', 'desc')
+            ->where('date', 'like', "%$q%")
+            ->orWhere('description', 'like', "%$q%")
+            ->paginate($limit, ['*'], 'page', $page);
     }
 
     /**
