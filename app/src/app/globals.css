@@ -78,3 +78,8 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@page {
+  size: portrait;
+  size: A5;
+}

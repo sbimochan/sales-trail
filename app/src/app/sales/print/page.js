@@ -56,7 +56,7 @@ function Item() {
 
   return (
     <>
-      <div className="m-5 flex w-[720px] justify-between print:hidden">
+      <div className="m-5 mx-auto flex w-[720px] justify-between print:hidden">
         <div className="flex items-center space-x-2">
           <Switch
             id="quotation"
@@ -71,7 +71,7 @@ function Item() {
         </Button>
       </div>
 
-      <div className="container m-4 w-[720px] p-5 screen:border screen:border-black">
+      <div className="container m-4 mx-auto w-[720px] p-5 screen:border screen:border-black">
         <div className="text-center">
           <h5 className="mb-5 text-sm text-black">Jay Bhole</h5>
 
@@ -80,9 +80,11 @@ function Item() {
             <p>Date: {data.data.date}</p>
           </div>
 
-          <h5 className="mb-5 text-sm font-bold text-black">{isQuotation ? "Quotation" : "Estimate"}</h5>
+          <h5 className="mb-5 text-sm font-bold text-black">
+            {isQuotation ? 'Quotation' : 'Estimate'}
+          </h5>
 
-          <Table className="border text-xs">
+          <Table className="border text-[9px]">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[50px] border border-black text-black">S.N.</TableHead>
