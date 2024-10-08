@@ -51,6 +51,7 @@ function Login() {
   });
 
   const { isFetching, data } = useQuery({
+    queryKey: ['users'],
     retry: false,
     refetchOnWindowFocus: false,
     queryFn: getAuthenticatedUser,

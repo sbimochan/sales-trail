@@ -101,7 +101,7 @@ function Unit() {
   const deleteRowRef = useRef(null);
 
   const { data, refetch, isFetching } = useQuery({
-    queryKey: [pagination, debouncedQuery],
+    queryKey: ['units', pagination, debouncedQuery],
     enabled: true,
     keepPreviousData: true,
     queryFn: () => {

@@ -101,7 +101,7 @@ function Sale() {
   const [deleteRow, setDeleteRow] = useState(null);
 
   const { data, refetch, isFetching } = useQuery({
-    queryKey: [pagination, debouncedQuery],
+    queryKey: ['sales', pagination, debouncedQuery],
     enabled: true,
     keepPreviousData: true,
     queryFn: () => {

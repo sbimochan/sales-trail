@@ -19,7 +19,7 @@ function Item() {
 
   const { isFetching } = useQuery({
     enabled: true,
-    queryKey: [saleId],
+    queryKey: ['sales', saleId],
     keepPreviousData: true,
     queryFn: () => getSale({ id: saleId }),
   });
