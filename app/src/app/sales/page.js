@@ -416,8 +416,10 @@ function Sale() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button className="ml-2">
-                <PlusIcon className="h-4 w-4" /> Add Sale
+              <Button asChild className="ml-2">
+                <Link href="/sales/create">
+                  <PlusIcon className="h-4 w-4" /> Add Sale
+                </Link>
               </Button>
             </div>
           </div>
