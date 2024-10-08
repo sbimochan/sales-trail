@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import { useAuthUser } from '@/hooks/use-is-authenticated';
 
@@ -28,21 +28,26 @@ import { Textarea } from '@/components/ui/textarea';
 
 function Item() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const [isQuotation, setQuotation] = useState(false);
   const { isLoading, data: auth } = useAuthUser();
 
   const saleId = searchParams.get('id');
 
-  const { data, isFetching } = useQuery({
+  const { data, isFetching, isSuccess } = useQuery({
     enabled: true,
     queryKey: ['sales', saleId],
     keepPreviousData: true,
     refetchOnWindowFocus: false,
+    retry: false,
     queryFn: () => getSale({ id: saleId }),
+    onError: () => {
+      router.replace('/404');
+    },
   });
 
-  if (isLoading || isFetching || !auth) {
+  if (isLoading || isFetching || !auth || !isSuccess) {
     return (
       <div className="flex h-lvh items-center justify-center space-x-4">
         <div className="space-y-2">
