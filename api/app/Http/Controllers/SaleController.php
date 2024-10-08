@@ -7,15 +7,25 @@ use App\Models\Sale;
 use App\Models\SaleItem;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreSaleRequest;
+use App\Http\Requests\PaginationRequest;
 
 class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PaginationRequest $request)
     {
-        return Sale::orderBy('created_at', 'desc')->paginate(10);
+        $data = $request->validated();
+
+        $q = $data['q'] ?? "";
+        $page = $data['page'] ?? 1;
+        $limit = $data['limit'] ?? 10;
+
+        return Sale::orderBy('created_at', 'desc')
+            ->where('date', 'like', "%$q%")
+            ->orWhere('description', 'like', "%$q%")
+            ->paginate($limit, ['*'], 'page', $page);
     }
 
     /**
