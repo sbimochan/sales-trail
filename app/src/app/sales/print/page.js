@@ -242,10 +242,9 @@ function Item() {
           </Table>
         </div>
 
-        <Textarea
-          className="rounded-none border-t-0 border-black text-[9px] focus-visible:ring-0"
-          placeholder=""
-        />
+        <Textarea className="rounded-none border-t-0 border-black text-[9px] focus-visible:ring-0">
+          {data.data.description}
+        </Textarea>
       </div>
     </>
   );
