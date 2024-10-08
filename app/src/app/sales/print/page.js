@@ -52,7 +52,7 @@ function Item() {
     );
   }
 
-  const formatter = Intl.NumberFormat('en', { minimumFractionDigits: 2 });
+  const formatter = Intl.NumberFormat('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const placeholder = data.data.sale_items.length >= 20 ? 0 : 20 - data.data.sale_items.length;
 
   return (
@@ -154,7 +154,7 @@ function Item() {
                       isQuotation ? 'hidden' : '',
                     )}
                   >
-                    {formatter.format(sale.discount)}
+                    {formatter.format((sale.discount / sale.total) * 100)} %
                   </TableCell>
                   <TableCell
                     className={cn(
