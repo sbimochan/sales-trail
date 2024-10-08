@@ -21,7 +21,7 @@ function Item() {
     enabled: true,
     queryKey: [saleId],
     keepPreviousData: true,
-    queryFn: () => getSale({ id: saleId })
+    queryFn: () => getSale({ id: saleId }),
   });
 
   if (isLoading || isFetching || !auth) {
@@ -35,7 +35,7 @@ function Item() {
   }
 
   return (
-    <div className="container m-4 p-5 border w-[720px]">
+    <div className="container m-4 w-[720px] border p-5">
       <div className="text-center">
         <h5 className="text-sm">Jay Bhole</h5>
       </div>

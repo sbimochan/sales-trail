@@ -67,7 +67,7 @@ export function ItemDialog({ open = true, row = null, refetch = () => {}, onClos
   const { data: units } = useQuery({
     enabled: true,
     keepPreviousData: true,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     queryFn: () => getUnits({ page: 1, limit: 1024, query: '' }),
   });
 
@@ -154,7 +154,7 @@ export function ItemDialog({ open = true, row = null, refetch = () => {}, onClos
                           <SelectContent>
                             <SelectGroup>
                               <SelectLabel>Units</SelectLabel>
-                              {units.data.data.map(({ id, name }) => (
+                              {units?.data?.data.map(({ id, name }) => (
                                 <SelectItem key={id} value={id}>
                                   {name}
                                 </SelectItem>

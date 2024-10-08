@@ -13,11 +13,7 @@ import { deleteSale, getSales } from '@/services/sale.service';
 
 import Link from 'next/link';
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -104,7 +100,7 @@ function Sale() {
 
   const [deleteRow, setDeleteRow] = useState(null);
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isFetching } = useQuery({
     queryKey: [pagination, debouncedQuery],
     enabled: true,
     keepPreviousData: true,
@@ -166,44 +162,54 @@ function Sale() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {
-                      row.original?.sale_items?.map((sale, index) => (
-                        <TableRow key={sale.id}>
-                          <TableCell>{index + 1}</TableCell>
+                    {row.original?.sale_items?.map((sale, index) => (
+                      <TableRow key={sale.id}>
+                        <TableCell>{index + 1}</TableCell>
 
-                          <TableCell>{sale.item.name}</TableCell>
+                        <TableCell>{sale.item.name}</TableCell>
 
-                          <TableCell>
-                            {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(sale.price)}
-                          </TableCell>
+                        <TableCell>
+                          {Intl.NumberFormat('en-IN', {
+                            style: 'currency',
+                            currency: 'INR',
+                          }).format(sale.price)}
+                        </TableCell>
 
-                          <TableCell>{sale.quantity}</TableCell>
+                        <TableCell>{sale.quantity}</TableCell>
 
-                          <TableCell>{sale.item.unit.name}</TableCell>
+                        <TableCell>{sale.item.unit.name}</TableCell>
 
-                          <TableCell>
-                            {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(sale.discount)}
-                          </TableCell>
+                        <TableCell>
+                          {Intl.NumberFormat('en-IN', {
+                            style: 'currency',
+                            currency: 'INR',
+                          }).format(sale.discount)}
+                        </TableCell>
 
-                          <TableCell className="text-right">
-                            {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(sale.total)}
-                          </TableCell>
-                        </TableRow>
-                      ))
-                    }
+                        <TableCell className="text-right">
+                          {Intl.NumberFormat('en-IN', {
+                            style: 'currency',
+                            currency: 'INR',
+                          }).format(sale.total)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
                   <TableFooter>
                     <TableRow>
                       <TableCell colSpan={6}>Total</TableCell>
                       <TableCell className="text-right">
-                        {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(row?.original?.total)}
+                        {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
+                          row?.original?.total,
+                        )}
                       </TableCell>
                     </TableRow>
                   </TableFooter>
-                </Table></PopoverContent>
+                </Table>
+              </PopoverContent>
             </Popover>
-          )
-        }
+          );
+        },
       },
       {
         accessorKey: 'total',
@@ -253,7 +259,10 @@ function Sale() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem asChild>
-                  <Link href={{ pathname: '/sales/print', query: { id: row.original.id } }} target="_blank">
+                  <Link
+                    href={{ pathname: '/sales/print', query: { id: row.original.id } }}
+                    target="_blank"
+                  >
                     <PrinterIcon className="mr-2 h-4 w-4" /> Print
                   </Link>
                 </DropdownMenuItem>
@@ -311,7 +320,7 @@ function Sale() {
     },
     onSettled: () => {
       setDeleteRow(null);
-    }
+    },
   });
 
   if (isLoading || !auth) {
@@ -436,7 +445,11 @@ function Sale() {
                     <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          {isFetching ? (
+                            <Skeleton className="h-8 w-full" />
+                          ) : (
+                            flexRender(cell.column.columnDef.cell, cell.getContext())
+                          )}
                         </TableCell>
                       ))}
                     </TableRow>
