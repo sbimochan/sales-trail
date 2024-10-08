@@ -24,6 +24,7 @@ import { Button } from '@/components/ui/button';
 import { getSale } from '@/services/sale.service';
 import { cn } from '@/lib/utils';
 import { PrinterIcon } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 
 function Item() {
   const searchParams = useSearchParams();
@@ -235,6 +236,11 @@ function Item() {
             )}
           </Table>
         </div>
+
+        <Textarea
+          className="rounded-none border-t-0 border-black text-[9px] focus-visible:ring-0"
+          placeholder=""
+        />
       </div>
     </>
   );
