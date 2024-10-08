@@ -105,6 +105,7 @@ function Item() {
     queryKey: ['items', pagination, debouncedQuery],
     enabled: true,
     keepPreviousData: true,
+    refetchOnWindowFocus: false,
     queryFn: () => {
       const limit = pagination.pageSize;
       const page = pagination.pageIndex + 1;
