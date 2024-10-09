@@ -460,8 +460,8 @@ function Sale() {
                 ) : (
                   <TableRow>
                     {isFetching ? (
-                      columns.map(() => (
-                        <TableCell>
+                      columns.map((_, index) => (
+                        <TableCell key={index}>
                           <Skeleton className="h-8 w-full" />
                         </TableCell>
                       ))
