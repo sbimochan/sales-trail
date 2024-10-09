@@ -24,8 +24,8 @@ export async function createSale({ description, items = [], discount = 0, date }
   return data;
 }
 
-export async function updateSale({ name, id }) {
-  const data = await axios.put(`/sales/${id}`, { name });
+export async function updateSale({ description, items = [], discount = 0, date, id }) {
+  const data = await axios.put(`/sales/${id}`, { description, items, discount, date });
 
   return data;
 }
