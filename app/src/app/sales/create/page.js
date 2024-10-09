@@ -70,7 +70,7 @@ const DEFAULT_ITEM = {
 
 const schema = z.object({
   discount: z.coerce.number(),
-  description: z.string().min(0),
+  description: z.string().min(0).nullable(),
   date: z.date({ required_error: 'A date of sale is required.' }),
   items: z.array(
     z.object({

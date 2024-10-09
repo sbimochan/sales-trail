@@ -42,7 +42,7 @@ const schema = z.object({
   id: z.coerce.number(),
   price: z.coerce.number().gt(0, { message: 'Rate is required' }),
   unit_id: z.coerce.number().gt(0, { message: 'Unit is required' }),
-  description: z.string(),
+  description: z.string().nullable(),
   name: z.string().min(1, { message: 'Item name is required' }),
 });
 
