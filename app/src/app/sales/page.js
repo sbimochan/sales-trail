@@ -199,7 +199,20 @@ function Sale() {
                   </TableBody>
                   <TableFooter>
                     <TableRow>
-                      <TableCell colSpan={6}>Total</TableCell>
+                      <TableCell className="text-right" colSpan={6}>
+                        Adj.
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
+                          row?.original?.discount,
+                        )}
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow>
+                      <TableCell className="text-right" colSpan={6}>
+                        Total
+                      </TableCell>
                       <TableCell className="text-right">
                         {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
                           row?.original?.total,
