@@ -282,8 +282,13 @@ function Sale() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Pencil2Icon className="mr-2 h-4 w-4" /> Edit
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={{ pathname: '/sales/edit', query: { id: row.original.id } }}
+                    target="_blank"
+                  >
+                    <Pencil2Icon className="mr-2 h-4 w-4" /> Edit
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setDeleteRow(row.original)}>
                   <TrashIcon className="mr-2 h-4 w-4" /> Delete
