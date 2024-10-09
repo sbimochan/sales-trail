@@ -22,10 +22,10 @@ import { Switch } from '@/components/ui/switch';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 
-import { getSale } from '@/services/sale.service';
 import { cn } from '@/lib/utils';
 import { PrinterIcon } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
+import { getReturn } from '@/services/return.service';
 
 function Print() {
   const searchParams = useSearchParams();
@@ -34,15 +34,15 @@ function Print() {
   const [isQuotation, setQuotation] = useState(false);
   const { isLoading, data: auth } = useAuthUser();
 
-  const saleId = searchParams.get('id');
+  const returnId = searchParams.get('id');
 
   const { data, isFetching, isSuccess } = useQuery({
     enabled: true,
-    queryKey: ['sales', saleId],
+    queryKey: ['returns', returnId],
     keepPreviousData: true,
     refetchOnWindowFocus: false,
     retry: false,
-    queryFn: () => getSale({ id: saleId }),
+    queryFn: () => getReturn({ id: returnId }),
     onError: () => {
       router.replace('/404');
     },
@@ -59,7 +59,7 @@ function Print() {
   }
 
   const formatter = Intl.NumberFormat('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const placeholder = data.data.sale_items.length >= 20 ? 0 : 20 - data.data.sale_items.length;
+  const placeholder = data.data.refund_items.length >= 20 ? 0 : 20 - data.data.refund_items.length;
 
   return (
     <>
@@ -88,7 +88,7 @@ function Print() {
           </div>
 
           <h5 className="mb-5 text-sm font-bold text-black">
-            {isQuotation ? 'Quotation' : 'Estimate'}
+            {isQuotation ? 'Return' : 'Estimate'}
           </h5>
 
           <Table className="border text-[9px]">
@@ -132,19 +132,19 @@ function Print() {
             </TableHeader>
 
             <TableBody className="border border-black">
-              {data?.data?.sale_items?.map((sale, index) => (
+              {data?.data?.refund_items?.map((refund, index) => (
                 <TableRow key={index}>
                   <TableCell className="border-x border-y-0 border-x-black text-right">
                     {index + 1}
                   </TableCell>
                   <TableCell className="border-x border-y-0 border-x-black text-left font-medium">
-                    {sale.item.name}
+                    {refund.item.name}
                   </TableCell>
                   <TableCell className="border-x border-y-0 border-x-black text-right">
-                    {sale.quantity}
+                    {refund.quantity}
                   </TableCell>
                   <TableCell className="border-x border-y-0 border-x-black text-right">
-                    {sale.item.unit.name}
+                    {refund.item.unit.name}
                   </TableCell>
                   <TableCell
                     className={cn(
@@ -152,7 +152,7 @@ function Print() {
                       isQuotation ? 'hidden' : '',
                     )}
                   >
-                    {formatter.format(sale.price)}
+                    {formatter.format(refund.price)}
                   </TableCell>
                   <TableCell
                     className={cn(
@@ -160,7 +160,7 @@ function Print() {
                       isQuotation ? 'hidden' : '',
                     )}
                   >
-                    {formatter.format(sale.discount)}
+                    {formatter.format(refund.discount)}
                   </TableCell>
                   <TableCell
                     className={cn(
@@ -168,7 +168,7 @@ function Print() {
                       isQuotation ? 'hidden' : '',
                     )}
                   >
-                    {formatter.format(sale.total)}
+                    {formatter.format(refund.total)}
                   </TableCell>
                 </TableRow>
               ))}
