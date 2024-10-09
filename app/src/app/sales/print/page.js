@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic';
 
 import { useState } from 'react';
+import { format } from 'date-fns';
 import { useQuery } from 'react-query';
 import { useSearchParams, useRouter } from 'next/navigation';
 
@@ -83,7 +84,7 @@ function Print() {
 
           <div className="my-4 flex justify-between text-xs">
             <p className="underline"># Cash</p>
-            <p>Date: {data.data.date}</p>
+            <p>Date: {format(new Date(data.data.date), 'yyyy-MM-dd')}</p>
           </div>
 
           <h5 className="mb-5 text-sm font-bold text-black">
@@ -100,12 +101,12 @@ function Print() {
                 <TableHead className="w-[50px] border border-black text-right text-black">
                   Qty
                 </TableHead>
-                <TableHead className="w-[50px] border border-black text-right text-black">
+                <TableHead className="min-w-[50px] border border-black text-right text-black">
                   Unit
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'w-[50px] border border-black text-right text-black',
+                    'min-w-[50px] border border-black text-right text-black',
                     isQuotation ? 'hidden' : '',
                   )}
                 >
@@ -113,7 +114,7 @@ function Print() {
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'w-[50px] border border-black text-right text-black',
+                    'min-w-[50px] border border-black text-right text-black',
                     isQuotation ? 'hidden' : '',
                   )}
                 >
@@ -121,7 +122,7 @@ function Print() {
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'w-[50px] border border-black text-right text-black',
+                    'min-w-[50px] border border-black text-right text-black',
                     isQuotation ? 'hidden' : '',
                   )}
                 >
@@ -159,7 +160,7 @@ function Print() {
                       isQuotation ? 'hidden' : '',
                     )}
                   >
-                    {formatter.format((sale.discount / sale.total) * 100)} %
+                    {formatter.format(sale.discount)}
                   </TableCell>
                   <TableCell
                     className={cn(

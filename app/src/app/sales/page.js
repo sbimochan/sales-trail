@@ -1,6 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 
+import { format } from 'date-fns';
 import { useMutation, useQuery } from 'react-query';
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
@@ -133,7 +134,7 @@ function Sale() {
       {
         accessorKey: 'date',
         header: 'Date',
-        cell: ({ row }) => <div>{row.getValue('date')}</div>,
+        cell: ({ row }) => <div>{format(new Date(row.getValue('date')), 'yyyy-MM-dd')}</div>,
       },
       {
         accessorKey: 'description',

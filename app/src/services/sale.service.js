@@ -18,8 +18,8 @@ export async function deleteSale({ id }) {
   return data;
 }
 
-export async function createSale({ name }) {
-  const data = await axios.post('/sales', { name });
+export async function createSale({ description, items = [], discount = 0, date }) {
+  const data = await axios.post('/sales', { description, items, discount, date });
 
   return data;
 }
