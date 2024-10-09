@@ -283,10 +283,7 @@ function Sale() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link
-                    href={{ pathname: '/sales/edit', query: { id: row.original.id } }}
-                    target="_blank"
-                  >
+                  <Link href={{ pathname: '/sales/edit', query: { id: row.original.id } }}>
                     <Pencil2Icon className="mr-2 h-4 w-4" /> Edit
                   </Link>
                 </DropdownMenuItem>
