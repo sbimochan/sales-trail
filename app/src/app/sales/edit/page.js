@@ -421,8 +421,10 @@ function Sale() {
                                     }
 
                                     const adj = (
-                                      Number(Number(value.slice(0, -1)) / 100) * total
+                                      Number(Number(value.slice(0, -1)) / 100) *
+                                      (watchedItems[index].price * watchedItems[index].quantity)
                                     ).toFixed(2);
+
                                     setTimeout(() => setValue(`items[${index}].discount`, adj), 0);
                                   }}
                                 />
@@ -433,34 +435,34 @@ function Sale() {
                       </TableCell>
 
                       <TableCell>
-                        <Controller
-                          control={control}
-                          name={`items[${index}].price`}
-                          render={({ field: { value: price } }) => (
-                            <Controller
-                              control={control}
-                              name={`items[${index}].quantity`}
-                              render={({ field: { value: quantity } }) => (
-                                <Controller
-                                  control={control}
-                                  name={`items[${index}].discount`}
-                                  render={({ field: { value: discount } }) => {
-                                    let total = Number(price) * Number(quantity) - Number(discount);
-
-                                    return (
-                                      <Input
-                                        value={isNaN(total) ? '0.00' : formatter.format(total || 0)}
-                                        readOnly
-                                        className="border-none p-0 text-right shadow-none focus:border-none focus-visible:ring-0"
-                                        type="text"
-                                      />
-                                    );
-                                  }}
-                                />
-                              )}
-                            />
-                          )}
+                        <Input
+                          value={
+                            isNaN(
+                              Number(watchedItems[index]?.price) *
+                                Number(watchedItems[index]?.quantity) -
+                                Number(watchedItems[index]?.discount),
+                            )
+                              ? '0.00'
+                              : formatter.format(
+                                  Number(watchedItems[index].price) *
+                                    Number(watchedItems[index].quantity) -
+                                    Number(watchedItems[index].discount) || 0,
+                                )
+                          }
+                          readOnly
+                          className="border-none p-0 text-right shadow-none focus:border-none focus-visible:ring-0"
+                          type="text"
                         />
+                      </TableCell>
+
+                      <TableCell className="text-center">
+                        <Button
+                          onClick={() => items.remove(index)}
+                          variant="ghost"
+                          className="h-8 w-8 p-0"
+                        >
+                          <Trash2Icon className="h-4 w-4" />
+                        </Button>
                       </TableCell>
 
                       <TableCell className="text-center">
