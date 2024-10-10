@@ -464,16 +464,6 @@ function Sale() {
                           <Trash2Icon className="h-4 w-4" />
                         </Button>
                       </TableCell>
-
-                      <TableCell className="text-center">
-                        <Button
-                          onClick={() => items.remove(index)}
-                          variant="ghost"
-                          className="h-8 w-8 p-0"
-                        >
-                          <Trash2Icon className="h-4 w-4" />
-                        </Button>
-                      </TableCell>
                     </TableRow>
                   );
                 })}
