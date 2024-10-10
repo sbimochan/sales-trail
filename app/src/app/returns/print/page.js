@@ -32,6 +32,8 @@ function Print() {
   const router = useRouter();
 
   const [isQuotation, setQuotation] = useState(false);
+  const [isDiscount, setIsDiscount] = useState(true);
+
   const { isLoading, data: auth } = useAuthUser();
 
   const returnId = searchParams.get('id');
@@ -64,13 +66,24 @@ function Print() {
   return (
     <>
       <div className="m-5 mx-auto flex w-[720px] justify-between print:hidden">
-        <div className="flex items-center space-x-2">
-          <Switch
-            id="quotation"
-            checked={isQuotation}
-            onCheckedChange={(value) => setQuotation(value)}
-          />
-          <Label htmlFor="quotation">Quotation</Label>
+        <div className="flex">
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="quotation"
+              checked={isQuotation}
+              onCheckedChange={(value) => setQuotation(value)}
+            />
+            <Label htmlFor="quotation">Quotation</Label>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="discount"
+              checked={isDiscount}
+              onCheckedChange={(value) => setIsDiscount(value)}
+            />
+            <Label htmlFor="quotation">Discount</Label>
+          </div>
         </div>
 
         <Button onClick={window.print}>
@@ -115,7 +128,7 @@ function Print() {
                 <TableHead
                   className={cn(
                     'min-w-[50px] border border-black text-right text-black',
-                    isQuotation ? 'hidden' : '',
+                    isQuotation || !isDiscount ? 'hidden' : '',
                   )}
                 >
                   Discount
@@ -157,7 +170,7 @@ function Print() {
                   <TableCell
                     className={cn(
                       'border-x border-y-0 border-x-black text-right',
-                      isQuotation ? 'hidden' : '',
+                      isQuotation || !isDiscount ? 'hidden' : '',
                     )}
                   >
                     {formatter.format(refund.discount)}
