@@ -32,7 +32,7 @@ function Print() {
   const router = useRouter();
 
   const [isQuotation, setQuotation] = useState(false);
-  const [isDiscount, setIsDiscount] = useState(true);
+  const [isDiscount, setIsDiscount] = useState(false);
 
   const { isLoading, data: auth } = useAuthUser();
 
