@@ -32,7 +32,7 @@ function Print() {
   const router = useRouter();
 
   const [isQuotation, setQuotation] = useState(false);
-  const [isDiscount, setIsDiscount] = useState(true);
+  const [isDiscount, setIsDiscount] = useState(false);
 
   const { isLoading, data: auth } = useAuthUser();
 
@@ -76,8 +76,9 @@ function Print() {
             <Label htmlFor="quotation">Quotation</Label>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="ml-5 flex items-center space-x-2">
             <Switch
+              disabled={isQuotation}
               id="discount"
               checked={isDiscount}
               onCheckedChange={(value) => setIsDiscount(value)}
