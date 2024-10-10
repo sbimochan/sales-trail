@@ -228,9 +228,9 @@ function Return() {
                 <TableRow>
                   <TableHead className="w-[50px] text-black">S.N.</TableHead>
                   <TableHead className="text-black">Particulars</TableHead>
-                  <TableHead className="w-[100px] text-black">Rate</TableHead>
-                  <TableHead className="w-[100px] text-black">Unit</TableHead>
                   <TableHead className="w-[100px] text-black">Qty</TableHead>
+                  <TableHead className="w-[100px] text-black">Unit</TableHead>
+                  <TableHead className="w-[100px] text-black">Rate</TableHead>
                   <TableHead className="w-[100px] text-black">Discount</TableHead>
                   <TableHead className="w-[100px] text-right text-black">Amount</TableHead>
                   <TableHead className="w-[100px] text-right text-black"></TableHead>
@@ -304,14 +304,14 @@ function Return() {
 
                       <TableCell>
                         <FormField
-                          name={`items[${index}].price`}
+                          name={`items[${index}].quantity`}
                           control={control}
                           render={({ field }) => (
                             <FormItem className="w-full">
                               <FormControl>
                                 <Input
-                                  type="text"
                                   className="shadow-none"
+                                  type="text"
                                   placeholder=""
                                   {...field}
                                 />
@@ -344,14 +344,14 @@ function Return() {
 
                       <TableCell>
                         <FormField
-                          name={`items[${index}].quantity`}
+                          name={`items[${index}].price`}
                           control={control}
                           render={({ field }) => (
                             <FormItem className="w-full">
                               <FormControl>
                                 <Input
-                                  className="shadow-none"
                                   type="text"
+                                  className="shadow-none"
                                   placeholder=""
                                   {...field}
                                 />
@@ -383,7 +383,8 @@ function Return() {
                                     }
 
                                     const adj = (
-                                      Number(Number(value.slice(0, -1)) / 100) * total
+                                      Number(Number(value.slice(0, -1)) / 100) *
+                                      (watchedItems[index].price * watchedItems[index].quantity)
                                     ).toFixed(2);
                                     setTimeout(() => setValue(`items[${index}].discount`, adj), 0);
                                   }}
@@ -395,33 +396,23 @@ function Return() {
                       </TableCell>
 
                       <TableCell>
-                        <Controller
-                          control={control}
-                          name={`items[${index}].price`}
-                          render={({ field: { value: price } }) => (
-                            <Controller
-                              control={control}
-                              name={`items[${index}].quantity`}
-                              render={({ field: { value: quantity } }) => (
-                                <Controller
-                                  control={control}
-                                  name={`items[${index}].discount`}
-                                  render={({ field: { value: discount } }) => {
-                                    let total = Number(price) * Number(quantity) - Number(discount);
-
-                                    return (
-                                      <Input
-                                        value={isNaN(total) ? '0.00' : formatter.format(total || 0)}
-                                        readOnly
-                                        className="border-none p-0 text-right shadow-none focus:border-none focus-visible:ring-0"
-                                        type="text"
-                                      />
-                                    );
-                                  }}
-                                />
-                              )}
-                            />
-                          )}
+                        <Input
+                          value={
+                            isNaN(
+                              Number(watchedItems[index]?.price) *
+                                Number(watchedItems[index]?.quantity) -
+                                Number(watchedItems[index]?.discount),
+                            )
+                              ? '0.00'
+                              : formatter.format(
+                                  Number(watchedItems[index].price) *
+                                    Number(watchedItems[index].quantity) -
+                                    Number(watchedItems[index].discount) || 0,
+                                )
+                          }
+                          readOnly
+                          className="border-none p-0 text-right shadow-none focus:border-none focus-visible:ring-0"
+                          type="text"
                         />
                       </TableCell>
 
