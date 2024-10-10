@@ -32,7 +32,7 @@ function Print() {
   const router = useRouter();
 
   const [isQuotation, setQuotation] = useState(false);
-  const [isDiscount, setIsDiscount] = useState(false);
+  const [isDiscount, setIsDiscount] = useState(true);
 
   const { isLoading, data: auth } = useAuthUser();
 
@@ -202,7 +202,7 @@ function Print() {
                   <TableCell
                     className={cn(
                       'border-x border-y-0 border-x-black text-right',
-                      isQuotation ? 'hidden' : '',
+                      isQuotation || !isDiscount ? 'hidden' : '',
                     )}
                   ></TableCell>
                   <TableCell
@@ -229,7 +229,10 @@ function Print() {
                   <TableCell className="border border-black text-left" rowSpan={3} colSpan={2}>
                     <div className="w-[50px] rotate-[270deg] text-right">{data.data.id}</div>
                   </TableCell>
-                  <TableCell className="border border-black text-right" colSpan={4}>
+                  <TableCell
+                    className="border border-black text-right"
+                    colSpan={isDiscount ? 4 : 3}
+                  >
                     Total
                   </TableCell>
                   <TableCell className="border border-black text-right">
@@ -237,7 +240,10 @@ function Print() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="border border-black text-right" colSpan={4}>
+                  <TableCell
+                    className="border border-black text-right"
+                    colSpan={isDiscount ? 4 : 3}
+                  >
                     Adj
                   </TableCell>
                   <TableCell className="border border-black text-right">
@@ -245,7 +251,10 @@ function Print() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="border border-black text-right font-medium" colSpan={4}>
+                  <TableCell
+                    className="border border-black text-right font-medium"
+                    colSpan={isDiscount ? 4 : 3}
+                  >
                     Grand Total
                   </TableCell>
                   <TableCell className="border border-black text-right font-medium">
