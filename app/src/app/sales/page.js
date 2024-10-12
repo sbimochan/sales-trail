@@ -156,9 +156,9 @@ function Sale() {
                     <TableRow>
                       <TableHead className="w-[50px]">S.N.</TableHead>
                       <TableHead>Particulars</TableHead>
-                      <TableHead>Rate</TableHead>
-                      <TableHead>Unit</TableHead>
                       <TableHead>Qty</TableHead>
+                      <TableHead>Unit</TableHead>
+                      <TableHead>Rate</TableHead>
                       <TableHead>Discount</TableHead>
                       <TableHead className="text-right">Amount</TableHead>
                     </TableRow>
@@ -170,16 +170,16 @@ function Sale() {
 
                         <TableCell>{sale.item.name}</TableCell>
 
+                        <TableCell>{sale.quantity}</TableCell>
+
+                        <TableCell>{sale.item.unit.name}</TableCell>
+
                         <TableCell>
                           {Intl.NumberFormat('en-IN', {
                             style: 'currency',
                             currency: 'INR',
                           }).format(sale.price)}
                         </TableCell>
-
-                        <TableCell>{sale.quantity}</TableCell>
-
-                        <TableCell>{sale.item.unit.name}</TableCell>
 
                         <TableCell>
                           {Intl.NumberFormat('en-IN', {

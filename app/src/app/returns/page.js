@@ -156,9 +156,9 @@ function Return() {
                     <TableRow>
                       <TableHead className="w-[50px]">S.N.</TableHead>
                       <TableHead>Particulars</TableHead>
-                      <TableHead>Rate</TableHead>
-                      <TableHead>Unit</TableHead>
                       <TableHead>Qty</TableHead>
+                      <TableHead>Unit</TableHead>
+                      <TableHead>Rate</TableHead>
                       <TableHead>Discount</TableHead>
                       <TableHead className="text-right">Amount</TableHead>
                     </TableRow>
@@ -170,16 +170,16 @@ function Return() {
 
                         <TableCell>{refund.item.name}</TableCell>
 
+                        <TableCell>{refund.quantity}</TableCell>
+
+                        <TableCell>{refund.item.unit.name}</TableCell>
+
                         <TableCell>
                           {Intl.NumberFormat('en-IN', {
                             style: 'currency',
                             currency: 'INR',
                           }).format(refund.price)}
                         </TableCell>
-
-                        <TableCell>{refund.quantity}</TableCell>
-
-                        <TableCell>{refund.item.unit.name}</TableCell>
 
                         <TableCell>
                           {Intl.NumberFormat('en-IN', {
