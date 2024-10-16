@@ -1,12 +1,19 @@
+const { join } = require('path')
+const { spawn } = require('child_process')
 const { app, BrowserWindow } = require('electron/main')
+
+const artisan = join(__dirname, 'api', 'artisan')
+const php = spawn('php', [artisan, 'serve'])
 
 function createWindow() {
   const win = new BrowserWindow({
     minWidth: 1024,
-    minHeight: 720,
+    minHeight: 768,
+    icon: 'icon.png',
+    autoHideMenuBar: true
   })
 
-  win.loadFile('index.html')
+  win.loadURL('http://localhost:8000')
 }
 
 app.whenReady().then(() => {
@@ -19,8 +26,8 @@ app.whenReady().then(() => {
   })
 })
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+app.on('window-all-closed', app.quit)
+
+app.on('before-quit', () => {
+  php.kill()
 })
