@@ -178,7 +178,7 @@ function Return() {
 
                         <TableCell>{formatter.format(refund.price)}</TableCell>
 
-                        <TableCell>{formatter.format(refund.discount)}</TableCell>
+                        <TableCell>{formatter.format(refund.discount)}%</TableCell>
 
                         <TableCell className="text-right">
                           {formatter.format(refund.total)}

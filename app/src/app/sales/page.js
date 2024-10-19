@@ -161,7 +161,7 @@ function Sale() {
                       <TableHead>Qty</TableHead>
                       <TableHead>Unit</TableHead>
                       <TableHead>Rate</TableHead>
-                      <TableHead>Discount</TableHead>
+                      <TableHead>Discount %</TableHead>
                       <TableHead className="text-right">Amount</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -178,7 +178,7 @@ function Sale() {
 
                         <TableCell>{formatter.format(sale.price)}</TableCell>
 
-                        <TableCell>{formatter.format(sale.discount)}</TableCell>
+                        <TableCell>{formatter.format(sale.discount)}%</TableCell>
 
                         <TableCell className="text-right">{formatter.format(sale.total)}</TableCell>
                       </TableRow>

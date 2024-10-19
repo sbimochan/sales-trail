@@ -182,7 +182,7 @@ function Print() {
                       isQuotation || !isDiscount ? 'hidden' : '',
                     )}
                   >
-                    {formatter.format(sale.discount)}
+                    {formatter.format(sale.discount)}%
                   </TableCell>
                   <TableCell
                     className={cn(
