@@ -102,7 +102,7 @@ function Print() {
           </div>
 
           <h5 className="mb-5 text-sm font-bold text-black">
-            {isQuotation ? 'Quotation' : 'Estimate'}
+            {isQuotation ? 'Challan' : 'Estimate'}
           </h5>
 
           <Table className="border text-[9px]">
