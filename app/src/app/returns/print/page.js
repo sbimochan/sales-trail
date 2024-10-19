@@ -2,7 +2,6 @@
 import dynamic from 'next/dynamic';
 
 import { useState } from 'react';
-import { format } from 'date-fns';
 import { useQuery } from 'react-query';
 import { useSearchParams, useRouter } from 'next/navigation';
 
@@ -91,11 +90,11 @@ function Print() {
         </Button>
       </div>
 
-      <div className="container m-4 mx-auto w-[720px] p-5 screen:border screen:border-black">
+      <div className="container mx-auto mb-1 w-[720px] p-1 screen:border screen:border-black">
         <div className="text-center">
           <h5 className="mb-0 text-black">Jay Bhole</h5>
 
-          <div className="my-4 flex justify-between">
+          <div className="text-md my-1 flex justify-between">
             <div className="w-full">
               <Textarea
                 rows="1"
@@ -105,7 +104,7 @@ function Print() {
               </Textarea>
             </div>
 
-            <p className="whitespace-nowrap">{format(new Date(data.data.date), 'yyyy-MM-dd')}</p>
+            <p className="whitespace-nowrap">Date: {data.data.date}</p>
           </div>
 
           <h5 className="text-md mb-1 font-bold text-black">
