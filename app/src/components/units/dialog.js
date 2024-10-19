@@ -72,39 +72,41 @@ export function UnitDialog({ open = true, row = null, refetch = () => {}, onClos
           <DialogDescription>Click save when you're done.</DialogDescription>
         </DialogHeader>
 
-        <Form {...form}>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Unit Name
-              </Label>
+        <form onSubmit={handleSubmit(mutate)}>
+          <Form {...form}>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                  Unit Name
+                </Label>
 
-              <FormField
-                name="id"
-                control={control}
-                render={({ field }) => <input type="hidden" {...field} />}
-              />
+                <FormField
+                  name="id"
+                  control={control}
+                  render={({ field }) => <input type="hidden" {...field} />}
+                />
 
-              <FormField
-                name="name"
-                control={control}
-                render={({ field }) => (
-                  <Input type="text" placeholder="Pcs" {...field} className="col-span-3" />
-                )}
-              />
+                <FormField
+                  name="name"
+                  control={control}
+                  render={({ field }) => (
+                    <Input type="text" placeholder="Pcs" {...field} className="col-span-3" />
+                  )}
+                />
+              </div>
             </div>
-          </div>
-        </Form>
+          </Form>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
 
-          <Button className="mb-1" onClick={handleSubmit(mutate)} disabled={isLoading}>
-            {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />} Save
-          </Button>
-        </DialogFooter>
+            <Button type="submit" className="mb-1" disabled={isLoading}>
+              {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />} Save
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
