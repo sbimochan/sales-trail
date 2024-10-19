@@ -110,8 +110,11 @@ function Return() {
   });
 
   const { mutate, isLoading } = useMutation(createReturn, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({ title: 'Return successfully created.' });
+
+      window.open(`/returns/print?id=${data.data.id}`, '_blank');
+
       router.push('/returns');
     },
     onError: (error) => {

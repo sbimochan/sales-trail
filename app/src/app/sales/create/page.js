@@ -112,8 +112,11 @@ function Sale() {
   });
 
   const { mutate, isLoading } = useMutation(createSale, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast({ title: 'Sale successfully created.' });
+
+      window.open(`/sales/print?id=${data.data.id}`, '_blank');
+
       router.push('/sales');
     },
     onError: (error) => {
