@@ -48,7 +48,7 @@ const schema = z.object({
 
 const DEFAULT_ITEM = { id: '', name: '', unit_id: '', description: '', price: '' };
 
-export function ItemDialog({ open = true, row = null, refetch = () => {}, onClose = () => {} }) {
+export function ItemDialog({ open = true, row = null, refetch = () => { }, onClose = () => { } }) {
   const { toast } = useToast();
 
   const form = useForm({
@@ -103,103 +103,105 @@ export function ItemDialog({ open = true, row = null, refetch = () => {}, onClos
         </DialogHeader>
 
         <Form {...form}>
-          <div className="py-4">
-            <div className="items-center">
-              <FormField
-                name="id"
-                control={control}
-                render={({ field }) => <input type="hidden" {...field} />}
-              />
-
-              <FormField
-                name="name"
-                control={control}
-                render={({ field }) => (
-                  <FormItem className="mb-3">
-                    <FormLabel className="font-medium">Name</FormLabel>
-                    <FormControl>
-                      <Input type="text" placeholder="CPVC FAPT - 3/4" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="flex gap-4">
+          <form onSubmit={handleSubmit(mutate)}>
+            <div className="py-4">
+              <div className="items-center">
                 <FormField
-                  name="price"
+                  name="id"
+                  control={control}
+                  render={({ field }) => <input type="hidden" {...field} />}
+                />
+
+                <FormField
+                  name="name"
                   control={control}
                   render={({ field }) => (
-                    <FormItem className="mb-3 w-full">
-                      <FormLabel className="font-medium">Rate</FormLabel>
+                    <FormItem className="mb-3">
+                      <FormLabel className="font-medium">Name</FormLabel>
                       <FormControl>
-                        <Input type="text" placeholder="70.00" {...field} />
+                        <Input type="text" placeholder="CPVC FAPT - 3/4" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
+                <div className="flex gap-4">
+                  <FormField
+                    name="price"
+                    control={control}
+                    render={({ field }) => (
+                      <FormItem className="mb-3 w-full">
+                        <FormLabel className="font-medium">Rate</FormLabel>
+                        <FormControl>
+                          <Input type="text" placeholder="70.00" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    name="unit_id"
+                    control={control}
+                    render={({ field }) => (
+                      <FormItem className="mb-3 w-full">
+                        <FormLabel className="font-medium">Unit</FormLabel>
+                        <FormControl>
+                          <Select className="w-full" value={unitId} onValueChange={field.onChange}>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue
+                                placeholder={<span className="text-gray-500">Select a unit</span>}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Units</SelectLabel>
+                                {units?.data?.data.map(({ id, name }) => (
+                                  <SelectItem key={id} value={id}>
+                                    {name}
+                                  </SelectItem>
+                                ))}
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 <FormField
-                  name="unit_id"
+                  name="description"
                   control={control}
                   render={({ field }) => (
-                    <FormItem className="mb-3 w-full">
-                      <FormLabel className="font-medium">Unit</FormLabel>
+                    <FormItem className="mb-3">
+                      <FormLabel className="font-medium">Description</FormLabel>
                       <FormControl>
-                        <Select className="w-full" value={unitId} onValueChange={field.onChange}>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue
-                              placeholder={<span className="text-gray-500">Select a unit</span>}
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectLabel>Units</SelectLabel>
-                              {units?.data?.data.map(({ id, name }) => (
-                                <SelectItem key={id} value={id}>
-                                  {name}
-                                </SelectItem>
-                              ))}
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
+                        <Textarea
+                          placeholder="Type your description here for CPVC FAPT - 3/4."
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-
-              <FormField
-                name="description"
-                control={control}
-                render={({ field }) => (
-                  <FormItem className="mb-3">
-                    <FormLabel className="font-medium">Description</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Type your description here for CPVC FAPT - 3/4."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
-          </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={onClose}>
+                Cancel
+              </Button>
+
+              <Button type="submit" className="mb-1" disabled={isLoading}>
+                {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />} Save
+              </Button>
+            </DialogFooter>
+          </form>
         </Form>
-
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-
-          <Button className="mb-1" onClick={handleSubmit(mutate)} disabled={isLoading}>
-            {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />} Save
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
