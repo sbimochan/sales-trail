@@ -83,3 +83,35 @@ body {
   size: portrait;
   size: A5;
 }
+
+.nepali-date-picker td.month-day.current {
+  color: #000;
+}
+
+.nepali-date-picker .calender td.month-day.selected::after {
+  background: #000 !important;
+  color: #fff;
+}
+
+.nepali-date-picker thead tr td {
+  color: #71717a;
+}
+
+.nepali-date-picker .control.month {
+  color: #000;
+  border: none !important;
+}
+
+.nepali-date-picker .control.year {
+  color: #000;
+  border: none !important;
+}
+
+.nepali-date-picker svg {
+  color: #000;
+}
+
+.nepali-date-picker li.active {
+  background: #000 !important;
+  color: #fff !important;
+}

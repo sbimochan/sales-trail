@@ -48,7 +48,7 @@ const schema = z.object({
 
 const DEFAULT_ITEM = { id: '', name: '', unit_id: '', description: '', price: '' };
 
-export function ItemDialog({ open = true, row = null, refetch = () => { }, onClose = () => { } }) {
+export function ItemDialog({ open = true, row = null, refetch = () => {}, onClose = () => {} }) {
   const { toast } = useToast();
 
   const form = useForm({

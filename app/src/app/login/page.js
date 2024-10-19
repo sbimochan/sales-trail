@@ -35,8 +35,8 @@ function Login() {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'admin@sales-trail.com',
+      password: 'Pa55w0rd',
     },
   });
 
