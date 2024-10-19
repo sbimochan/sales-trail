@@ -51,7 +51,7 @@ export default function Sidebar() {
   });
 
   return (
-    <div className="min-h-lvh max-w-72 border-r px-3 py-10">
+    <div className="min-h-lvh max-w-48 border-r px-3 py-10">
       {items.map(({ name, Icon, href }) => {
         const className = pathname.includes(href) ? 'bg-accent' : '';
 
