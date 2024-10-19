@@ -9,7 +9,7 @@
     public function rewriteDatabase()
     {
         ...
-        $database = base_path().'/database.sqlite';
+        $database = base_path().'/database/database.sqlite';
 
         config(['database.connections.nativephp' => [
             ...
