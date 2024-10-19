@@ -19,6 +19,22 @@ return new class extends Migration
         });
 
         DB::table('units')->insert(['name' => 'Pcs']);
+        DB::table('units')->insert(['name' => 'Pcs/n']);
+        DB::table('units')->insert(['name' => 'Pkt']);
+        DB::table('units')->insert(['name' => 'Pkt/n']);
+        DB::table('units')->insert(['name' => 'Sqr']);
+        DB::table('units')->insert(['name' => 'Sqr/n']);
+        DB::table('units')->insert(['name' => 'Set']);
+        DB::table('units')->insert(['name' => 'Set/n']);
+        DB::table('units')->insert(['name' => 'Mtr']);
+        DB::table('units')->insert(['name' => 'Mtr/n']);
+        DB::table('units')->insert(['name' => 'Bot./n']);
+        DB::table('units')->insert(['name' => 'Kg/n']);
+        DB::table('units')->insert(['name' => 'Bag/n']);
+        DB::table('units')->insert(['name' => 'Can/n']);
+        DB::table('units')->insert(['name' => 'Ml/T']);
+        DB::table('units')->insert(['name' => 'Side To']);
+        DB::table('units')->insert(['name' => 'Jar/n']);
     }
 
     /**
