@@ -1,13 +1,14 @@
 'use client';
 import { z } from 'zod';
 import { useEffect } from 'react';
-import { format } from 'date-fns';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMutation, useQuery } from 'react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 
 import dynamic from 'next/dynamic';
+import 'nepali-datepicker-reactjs/dist/index.css';
+import { NepaliDatePicker } from 'nepali-datepicker-reactjs';
 
 import {
   Breadcrumb,
@@ -17,7 +18,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { Calendar } from '@/components/ui/calendar';
 import Sidebar from '@/components/layout/sidebar';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -30,7 +30,6 @@ import {
 } from '@/components/ui/form';
 
 import { Input } from '@/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 import {
   Table,
@@ -48,11 +47,11 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 
 import { PlusIcon, Trash2Icon } from 'lucide-react';
-import { CalendarIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { ReloadIcon } from '@radix-ui/react-icons';
 
-import { cn } from '@/lib/utils';
 import { useAuthUser } from '@/hooks/use-is-authenticated';
 
+import { NepaliDate } from '@/lib/date';
 import { getItems } from '@/services/item.service';
 import { useToast } from '@/hooks/use-toast';
 import { getReturn, updateReturn } from '@/services/return.service';
@@ -68,7 +67,7 @@ const schema = z.object({
   id: z.coerce.number(),
   discount: z.coerce.number(),
   description: z.string().min(0).nullable(),
-  date: z.date({ required_error: 'A date of return is required.' }),
+  date: z.string({ required_error: 'A date of return is required.' }),
   items: z.array(
     z.object({
       item_id: z.coerce.number().gt(0),
@@ -94,7 +93,7 @@ function Return() {
     resolver: zodResolver(schema),
     defaultValues: {
       id: 0,
-      date: new Date(),
+      date: NepaliDate.getNepaliDate(),
       discount: 0,
       description: '',
       items: [DEFAULT_ITEM],
@@ -137,7 +136,6 @@ function Return() {
 
     const refund = data.data;
 
-    refund.date = new Date(refund.date);
     refund.items = refund.refund_items;
     refund.description = refund.description || '';
 
@@ -221,31 +219,13 @@ function Return() {
                 <FormItem className="flex flex-col">
                   <FormLabel>Date</FormLabel>
 
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[240px] pl-3 text-left font-normal',
-                            !field.value && 'text-muted-foreground',
-                          )}
-                        >
-                          {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
+                  <NepaliDatePicker
+                    className="w-[300px]"
+                    inputClassName="text-sm px-2 py-1 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-[300px] pl-3 text-left font-normal"
+                    value={field.value || ''}
+                    onChange={field.onChange}
+                    options={{ calenderLocale: 'en', valueLocale: 'en' }}
+                  />
                   <FormMessage />
                 </FormItem>
               )}
