@@ -305,7 +305,7 @@ function Sale() {
                                     </Button>
                                   </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-[200px] p-0">
+                                <PopoverContent className="w-[328px] p-0">
                                   <Command>
                                     <CommandInput placeholder="Search item..." className="h-9" />
                                     <CommandList>
