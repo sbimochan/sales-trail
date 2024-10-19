@@ -43,7 +43,8 @@ class SaleController extends Controller
 
         try {
             $items = array_map(function ($item) use (&$total) {
-                $item_total = ($item['quantity'] * $item['price']) - $item['discount'];
+                $amt = ($item['quantity'] * $item['price']);
+                $item_total = $amt - ($item['discount'] / 100) * $amt;
                 $total += $item_total;
 
                 return new SaleItem([
@@ -99,7 +100,8 @@ class SaleController extends Controller
             $sale->sale_items()->forceDelete();
 
             $items = array_map(function ($item) use (&$total) {
-                $item_total = ($item['quantity'] * $item['price']) - $item['discount'];
+                $amt = ($item['quantity'] * $item['price']);
+                $item_total = $amt - ($item['discount'] / 100) * $amt;
                 $total += $item_total;
 
                 return new SaleItem([
