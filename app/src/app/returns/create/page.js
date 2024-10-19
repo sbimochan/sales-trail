@@ -185,7 +185,7 @@ function Return() {
         <hr className="mb-5" />
 
         <Form {...form}>
-          <form onSubmit={handleSubmit(mutate, onError)} className="max-w-[900px] space-y-8">
+          <form onSubmit={handleSubmit(mutate, onError)} className="max-w-[1024px] space-y-8">
             <FormField
               control={control}
               name="date"
