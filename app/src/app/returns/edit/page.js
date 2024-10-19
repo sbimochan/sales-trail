@@ -119,7 +119,7 @@ function Return() {
     keepPreviousData: true,
     refetchOnWindowFocus: false,
     queryFn: () => {
-      return getItems({ page: 1, limit: 4096, query: '' });
+      return getItems({ page: 1, limit: 10240, query: '' });
     },
   });
 
