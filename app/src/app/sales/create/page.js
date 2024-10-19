@@ -129,7 +129,9 @@ function Sale() {
   });
 
   const total = watchedItems.reduce((acc, { quantity = 0, price = 0, discount = 0 }) => {
-    return (acc += Number(quantity) * Number(price) - Number(discount));
+    const amt = Number(quantity) * Number(price);
+    const adj = (Number(discount) / 100) * amt;
+    return (acc += amt - adj);
   }, 0);
 
   if (isLoadingAuth || !auth || isFetching) {
@@ -211,7 +213,7 @@ function Sale() {
                   <TableHead className="w-[100px] text-black">Qty</TableHead>
                   <TableHead className="w-[100px] text-black">Unit</TableHead>
                   <TableHead className="w-[100px] text-black">Rate</TableHead>
-                  <TableHead className="w-[100px] text-black">Discount</TableHead>
+                  <TableHead className="w-[100px] text-black">Discount %</TableHead>
                   <TableHead className="w-[100px] text-right text-black">Amount</TableHead>
                   <TableHead className="w-[100px] text-right text-black"></TableHead>
                 </TableRow>
@@ -304,22 +306,6 @@ function Sale() {
                                   type="text"
                                   placeholder=""
                                   {...field}
-                                  onChange={(e) => {
-                                    const value = e.target.value;
-                                    const isDiscountPercentage = String(value).endsWith('%');
-
-                                    if (!isDiscountPercentage) {
-                                      field.onChange(e);
-                                      return;
-                                    }
-
-                                    const adj = (
-                                      Number(Number(value.slice(0, -1)) / 100) *
-                                      (watchedItems[index].price * watchedItems[index].quantity)
-                                    ).toFixed(2);
-
-                                    setTimeout(() => setValue(`items[${index}].discount`, adj), 0);
-                                  }}
                                 />
                               </FormControl>
                             </FormItem>
@@ -328,16 +314,20 @@ function Sale() {
                       </TableCell>
 
                       <TableCell className="text-right">
-                        {isNaN(
-                          Number(watchedItems[index]?.price) *
-                            Number(watchedItems[index]?.quantity) -
-                            Number(watchedItems[index]?.discount),
-                        )
+                        {[
+                          watchedItems[index]?.price,
+                          watchedItems[index]?.quantity,
+                          watchedItems[index]?.discount,
+                        ].some(isNaN)
                           ? '0.00'
                           : formatter.format(
                               Number(watchedItems[index].price) *
                                 Number(watchedItems[index].quantity) -
-                                Number(watchedItems[index].discount) || 0,
+                                ((Number(watchedItems[index].discount) || 0) / 100) *
+                                  Number(
+                                    watchedItems[index].price *
+                                      Number(watchedItems[index].quantity),
+                                  ),
                             )}
                       </TableCell>
 
