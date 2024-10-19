@@ -139,6 +139,7 @@ function Sale() {
 
     sale.date = new Date(sale.date);
     sale.items = sale.sale_items;
+    sale.description = sale.description || '';
 
     reset(data.data);
   }, [isSuccess, isFetching]);
