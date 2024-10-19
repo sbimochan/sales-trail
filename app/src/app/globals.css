@@ -79,11 +79,6 @@ body {
   }
 }
 
-@page {
-  size: portrait;
-  size: A5;
-}
-
 .nepali-date-picker td.month-day.current {
   color: #000;
 }
