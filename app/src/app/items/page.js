@@ -114,6 +114,8 @@ function Item() {
     },
   });
 
+  const formatter = Intl.NumberFormat('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
   useEffect(() => {
     const params = new URLSearchParams();
 
@@ -149,13 +151,7 @@ function Item() {
       {
         accessorKey: 'price',
         header: 'Rate',
-        cell: ({ row }) => (
-          <div>
-            {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
-              row.getValue('price'),
-            )}
-          </div>
-        ),
+        cell: ({ row }) => <div>{formatter.format(row.getValue('price'))}</div>,
       },
       {
         id: 'actions',

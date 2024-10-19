@@ -124,6 +124,8 @@ function Return() {
     router.push(pathname + '?' + params.toString());
   }, [pagination, columnFilters, debouncedQuery]);
 
+  const formatter = Intl.NumberFormat('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
   const columns = useMemo(
     () => [
       {
@@ -174,25 +176,12 @@ function Return() {
 
                         <TableCell>{refund.item.unit.name}</TableCell>
 
-                        <TableCell>
-                          {Intl.NumberFormat('en-IN', {
-                            style: 'currency',
-                            currency: 'INR',
-                          }).format(refund.price)}
-                        </TableCell>
+                        <TableCell>{formatter.format(refund.price)}</TableCell>
 
-                        <TableCell>
-                          {Intl.NumberFormat('en-IN', {
-                            style: 'currency',
-                            currency: 'INR',
-                          }).format(refund.discount)}
-                        </TableCell>
+                        <TableCell>{formatter.format(refund.discount)}</TableCell>
 
                         <TableCell className="text-right">
-                          {Intl.NumberFormat('en-IN', {
-                            style: 'currency',
-                            currency: 'INR',
-                          }).format(refund.total)}
+                          {formatter.format(refund.total)}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -203,9 +192,7 @@ function Return() {
                         Adj.
                       </TableCell>
                       <TableCell className="text-right">
-                        {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
-                          row?.original?.discount,
-                        )}
+                        {formatter.format(row?.original?.discount)}
                       </TableCell>
                     </TableRow>
 
@@ -214,9 +201,7 @@ function Return() {
                         Total
                       </TableCell>
                       <TableCell className="text-right">
-                        {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
-                          row?.original?.total,
-                        )}
+                        {formatter.format(row?.original?.total)}
                       </TableCell>
                     </TableRow>
                   </TableFooter>
@@ -229,35 +214,17 @@ function Return() {
       {
         accessorKey: 'total',
         header: 'Total',
-        cell: ({ row }) => (
-          <div>
-            {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
-              row.getValue('total'),
-            )}
-          </div>
-        ),
+        cell: ({ row }) => <div>{formatter.format(row.getValue('total'))} </div>,
       },
       {
         accessorKey: 'discount',
         header: 'Discount',
-        cell: ({ row }) => (
-          <div>
-            {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
-              row.getValue('discount'),
-            )}
-          </div>
-        ),
+        cell: ({ row }) => <div>{formatter.format(row.getValue('discount'))} </div>,
       },
       {
         accessorKey: 'grand_total',
         header: 'Grand Total',
-        cell: ({ row }) => (
-          <div>
-            {Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(
-              row.getValue('grand_total'),
-            )}
-          </div>
-        ),
+        cell: ({ row }) => <div>{formatter.format(row.getValue('grand_total'))} </div>,
       },
       {
         id: 'actions',
