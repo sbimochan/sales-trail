@@ -419,6 +419,7 @@ function Sale() {
 
                       <TableCell className="text-center">
                         <Button
+                          type="button"
                           onClick={() => items.remove(index)}
                           variant="ghost"
                           className="h-8 w-8 p-0"
