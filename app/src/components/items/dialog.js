@@ -48,7 +48,7 @@ const schema = z.object({
 
 const DEFAULT_ITEM = { id: '', name: '', unit_id: '', description: '', price: '' };
 
-export function ItemDialog({ open = true, row = null, refetch = () => {}, onClose = () => {} }) {
+export function ItemDialog({ open = true, row = null, refetch = () => { }, onClose = () => { } }) {
   const { toast } = useToast();
 
   const form = useForm({
@@ -150,7 +150,7 @@ export function ItemDialog({ open = true, row = null, refetch = () => {}, onClos
                         <FormControl>
                           <Select
                             className="w-full"
-                            value={unitId.toString()}
+                            value={String(unitId)}
                             onValueChange={field.onChange}
                           >
                             <SelectTrigger className="w-[180px]">
@@ -162,7 +162,7 @@ export function ItemDialog({ open = true, row = null, refetch = () => {}, onClos
                               <SelectGroup>
                                 <SelectLabel>Units</SelectLabel>
                                 {units?.data?.data.map(({ id, name }) => (
-                                  <SelectItem key={id} value={id.toString()}>
+                                  <SelectItem key={id} value={String(id)}>
                                     {name}
                                   </SelectItem>
                                 ))}
