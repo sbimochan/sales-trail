@@ -41,19 +41,14 @@ import {
   TableHeader,
   TableFooter,
 } from '@/components/ui/table';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
+
+import Combobox from '@/components/Combobox';
+
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 
 import { PlusIcon, Trash2Icon } from 'lucide-react';
-import { CalendarIcon, CheckIcon, CaretSortIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { CalendarIcon, ReloadIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/lib/utils';
 import { useAuthUser } from '@/hooks/use-is-authenticated';
@@ -217,7 +212,7 @@ function Sale() {
         <hr className="mb-5" />
 
         <Form {...form}>
-          <form onSubmit={handleSubmit(mutate, onError)} className="max-w-[1024px] space-y-8">
+          <form onSubmit={(e) => e.preventDefault()} className="max-w-[1024px] space-y-8">
             <FormField
               control={control}
               name="date"
@@ -266,9 +261,9 @@ function Sale() {
                 <TableRow>
                   <TableHead className="w-[50px] text-black">S.N.</TableHead>
                   <TableHead className="text-black">Particulars</TableHead>
-                  <TableHead className="w-[100px] text-black">Rate</TableHead>
-                  <TableHead className="w-[100px] text-black">Unit</TableHead>
                   <TableHead className="w-[100px] text-black">Qty</TableHead>
+                  <TableHead className="w-[100px] text-black">Unit</TableHead>
+                  <TableHead className="w-[100px] text-black">Rate</TableHead>
                   <TableHead className="w-[100px] text-black">Discount</TableHead>
                   <TableHead className="w-[100px] text-right text-black">Amount</TableHead>
                   <TableHead className="w-[100px] text-right text-black"></TableHead>
@@ -286,55 +281,12 @@ function Sale() {
                           name={`items[${index}].item_id`}
                           render={({ field }) => (
                             <FormItem className="flex flex-col">
-                              <Popover>
-                                <PopoverTrigger asChild>
-                                  <FormControl>
-                                    <Button
-                                      variant="outline"
-                                      role="combobox"
-                                      className={cn(
-                                        'w-full justify-between border-none shadow-none focus:ring-0',
-                                        !field.value && 'text-muted-foreground',
-                                      )}
-                                    >
-                                      {field.value
-                                        ? products.data.data.find(({ id }) => id === field.value)
-                                            ?.name
-                                        : 'Select Item'}
-                                      <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                                    </Button>
-                                  </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-[328px] p-0">
-                                  <Command>
-                                    <CommandInput placeholder="Search item..." className="h-9" />
-                                    <CommandList>
-                                      <CommandEmpty>No framework found.</CommandEmpty>
-                                      <CommandGroup>
-                                        {products.data.data.map((product) => (
-                                          <CommandItem
-                                            value={product.name}
-                                            key={product.id}
-                                            onSelect={() => {
-                                              onSelect(index, product);
-                                            }}
-                                          >
-                                            {product.name}
-                                            <CheckIcon
-                                              className={cn(
-                                                'ml-auto h-4 w-4',
-                                                product.id === field.value
-                                                  ? 'opacity-100'
-                                                  : 'opacity-0',
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
-                                    </CommandList>
-                                  </Command>
-                                </PopoverContent>
-                              </Popover>
+                              <Combobox
+                                index={index}
+                                field={field}
+                                onSelect={onSelect}
+                                products={products}
+                              />
                             </FormItem>
                           )}
                         />
@@ -342,14 +294,14 @@ function Sale() {
 
                       <TableCell>
                         <FormField
-                          name={`items[${index}].price`}
+                          name={`items[${index}].quantity`}
                           control={control}
                           render={({ field }) => (
                             <FormItem className="w-full">
                               <FormControl>
                                 <Input
-                                  type="text"
                                   className="shadow-none"
+                                  type="text"
                                   placeholder=""
                                   {...field}
                                 />
@@ -368,28 +320,21 @@ function Sale() {
                               ({ id }) => id === field.value,
                             )?.unit;
 
-                            return (
-                              <Input
-                                value={unit?.name || ''}
-                                readOnly
-                                className="border-none p-0 shadow-none focus:border-none focus-visible:ring-0"
-                                type="text"
-                              />
-                            );
+                            return <span>{unit?.name || ''}</span>;
                           }}
                         />
                       </TableCell>
 
                       <TableCell>
                         <FormField
-                          name={`items[${index}].quantity`}
+                          name={`items[${index}].price`}
                           control={control}
                           render={({ field }) => (
                             <FormItem className="w-full">
                               <FormControl>
                                 <Input
-                                  className="shadow-none"
                                   type="text"
+                                  className="shadow-none"
                                   placeholder=""
                                   {...field}
                                 />
@@ -434,29 +379,23 @@ function Sale() {
                         />
                       </TableCell>
 
-                      <TableCell>
-                        <Input
-                          value={
-                            isNaN(
-                              Number(watchedItems[index]?.price) *
-                                Number(watchedItems[index]?.quantity) -
-                                Number(watchedItems[index]?.discount),
-                            )
-                              ? '0.00'
-                              : formatter.format(
-                                  Number(watchedItems[index].price) *
-                                    Number(watchedItems[index].quantity) -
-                                    Number(watchedItems[index].discount) || 0,
-                                )
-                          }
-                          readOnly
-                          className="border-none p-0 text-right shadow-none focus:border-none focus-visible:ring-0"
-                          type="text"
-                        />
+                      <TableCell className="text-right">
+                        {isNaN(
+                          Number(watchedItems[index]?.price) *
+                            Number(watchedItems[index]?.quantity) -
+                            Number(watchedItems[index]?.discount),
+                        )
+                          ? '0.00'
+                          : formatter.format(
+                              Number(watchedItems[index].price) *
+                                Number(watchedItems[index].quantity) -
+                                Number(watchedItems[index].discount) || 0,
+                            )}
                       </TableCell>
 
                       <TableCell className="text-center">
                         <Button
+                          type="button"
                           onClick={() => items.remove(index)}
                           variant="ghost"
                           className="h-8 w-8 p-0"
@@ -528,7 +467,7 @@ function Sale() {
             </Table>
 
             <Button
-              type="button"
+              type="submit"
               onClick={() => items.append(DEFAULT_ITEM)}
               className="rounded-full"
             >
@@ -549,7 +488,8 @@ function Sale() {
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={isLoading}>
+
+            <Button type="button" onClick={handleSubmit(mutate, onError)} disabled={isLoading}>
               {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />} Submit
             </Button>
           </form>
