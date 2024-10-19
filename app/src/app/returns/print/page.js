@@ -61,7 +61,7 @@ function Print() {
   }
 
   const formatter = Intl.NumberFormat('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const placeholder = data.data.refund_items.length >= 20 ? 0 : 20 - data.data.refund_items.length;
+  const placeholder = data.data.refund_items.length >= 21 ? 0 : 21 - data.data.refund_items.length;
 
   return (
     <>
@@ -154,22 +154,22 @@ function Print() {
 
             <TableBody className="border border-black">
               {data?.data?.refund_items?.map((refund, index) => (
-                <TableRow key={index}>
-                  <TableCell className="border-x border-y-0 border-x-black text-right">
+                <TableRow key={index} className="border-0">
+                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
                     {index + 1}
                   </TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black text-left font-medium">
+                  <TableCell className="border-x border-y-0 border-x-black py-1 text-left font-medium">
                     {refund.item.name}
                   </TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black text-right">
+                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
                     {refund.quantity}
                   </TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black text-right">
+                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
                     {refund.item.unit.name}
                   </TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black text-right',
+                      'border-x border-y-0 border-x-black py-1 text-right',
                       isQuotation ? 'hidden' : '',
                     )}
                   >
@@ -177,7 +177,7 @@ function Print() {
                   </TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black text-right',
+                      'border-x border-y-0 border-x-black py-1 text-right',
                       isQuotation || !isDiscount ? 'hidden' : '',
                     )}
                   >
@@ -185,7 +185,7 @@ function Print() {
                   </TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black text-right',
+                      'border-x border-y-0 border-x-black py-1 text-right',
                       isQuotation ? 'hidden' : '',
                     )}
                   >
@@ -195,26 +195,26 @@ function Print() {
               ))}
 
               {new Array(placeholder).fill(null).map((_, index) => (
-                <TableRow key={index}>
-                  <TableCell className="h-8 border-x border-y-0 border-x-black text-right"></TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black text-left font-medium"></TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black text-right"></TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black text-right"></TableCell>
+                <TableRow key={index} className="border-0">
+                  <TableCell className="h-8 border-x border-y-0 border-x-black py-1 text-right"></TableCell>
+                  <TableCell className="border-x border-y-0 border-x-black py-1 text-left font-medium"></TableCell>
+                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right"></TableCell>
+                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right"></TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black text-right',
+                      'border-x border-y-0 border-x-black py-1 text-right',
                       isQuotation ? 'hidden' : '',
                     )}
                   ></TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black text-right',
+                      'border-x border-y-0 border-x-black py-1 text-right',
                       isQuotation || !isDiscount ? 'hidden' : '',
                     )}
                   ></TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black text-right',
+                      'border-x border-y-0 border-x-black py-1 text-right',
                       isQuotation ? 'hidden' : '',
                     )}
                   ></TableCell>
