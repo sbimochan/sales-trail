@@ -100,7 +100,7 @@ function Print() {
             <div className="w-full">
               <Textarea
                 rows="1"
-                className="text-md resize-none rounded-none border-0 shadow-none focus-visible:ring-0"
+                className="text-md resize-none overflow-y-hidden rounded-none border-0 shadow-none focus-visible:ring-0"
               >
                 {data.data.description || '#Cash'}
               </Textarea>
@@ -109,7 +109,7 @@ function Print() {
             <p className="whitespace-nowrap">{format(new Date(data.data.date), 'yyyy-MM-dd')}</p>
           </div>
 
-          <h5 className="text-md mb-5 font-bold text-black">
+          <h5 className="text-md mb-1 font-bold text-black">
             {isQuotation ? 'Challan' : 'Estimate'}
           </h5>
 

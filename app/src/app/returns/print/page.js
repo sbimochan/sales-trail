@@ -76,7 +76,7 @@ function Print() {
             <Label htmlFor="quotation">Quotation</Label>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="ml-5 flex items-center space-x-2">
             <Switch
               id="discount"
               checked={isDiscount}
@@ -93,33 +93,41 @@ function Print() {
 
       <div className="container m-4 mx-auto w-[720px] p-5 screen:border screen:border-black">
         <div className="text-center">
-          <h5 className="mb-5 text-sm text-black">Jay Bhole</h5>
+          <h5 className="mb-0 text-black">Jay Bhole</h5>
 
-          <div className="my-4 flex justify-between text-xs">
-            <p className="underline"># Cash</p>
-            <p>Date: {format(new Date(data.data.date), 'yyyy-MM-dd')}</p>
+          <div className="my-4 flex justify-between">
+            <div className="w-full">
+              <Textarea
+                rows="1"
+                className="text-md resize-none overflow-y-hidden rounded-none border-0 shadow-none focus-visible:ring-0"
+              >
+                {data.data.description || '#Cash'}
+              </Textarea>
+            </div>
+
+            <p className="whitespace-nowrap">{format(new Date(data.data.date), 'yyyy-MM-dd')}</p>
           </div>
 
-          <h5 className="mb-5 text-sm font-bold text-black">
+          <h5 className="text-md mb-1 font-bold text-black">
             {isQuotation ? 'Return' : 'Estimate'}
           </h5>
 
-          <Table className="border text-[9px]">
+          <Table className="border">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[50px] border border-black text-black">S.N.</TableHead>
                 <TableHead className="w-full border border-black text-left text-black">
                   Particulars
                 </TableHead>
-                <TableHead className="w-[50px] border border-black text-right text-black">
+                <TableHead className="min-w-[60px] border border-black text-right text-black">
                   Qty
                 </TableHead>
-                <TableHead className="min-w-[50px] border border-black text-right text-black">
+                <TableHead className="min-w-[60px] border border-black text-right text-black">
                   Unit
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'min-w-[50px] border border-black text-right text-black',
+                    'min-w-[70px] border border-black text-right text-black',
                     isQuotation ? 'hidden' : '',
                   )}
                 >
@@ -127,7 +135,7 @@ function Print() {
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'min-w-[50px] border border-black text-right text-black',
+                    'min-w-[70px] border border-black text-right text-black',
                     isQuotation || !isDiscount ? 'hidden' : '',
                   )}
                 >
@@ -135,7 +143,7 @@ function Print() {
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'min-w-[50px] border border-black text-right text-black',
+                    'min-w-[70px] border border-black text-right text-black',
                     isQuotation ? 'hidden' : '',
                   )}
                 >
@@ -264,10 +272,6 @@ function Print() {
             )}
           </Table>
         </div>
-
-        <Textarea className="rounded-none border-t-0 border-black text-[9px] focus-visible:ring-0">
-          {data.data.description}
-        </Textarea>
       </div>
     </>
   );
