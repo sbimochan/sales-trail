@@ -2,6 +2,6 @@ module.exports = {
   appId: 'sales-trail',
   productName: 'Sales Trail',
   asar: false,
-  files: ['api', 'index.js'],
+  files: ['php-bin', 'api', 'index.js'],
   icon: './icon.png'
 }
