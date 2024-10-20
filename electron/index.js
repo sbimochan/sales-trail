@@ -3,7 +3,8 @@ const { spawn } = require('child_process')
 const { app, BrowserWindow } = require('electron/main')
 
 const public = join(__dirname, 'api', 'public')
-const php = spawn('php', ['-S', 'localhost:8000'], { cwd: public })
+const php = join(__dirname, 'php-bin', 'php')
+const server = spawn(php, ['-S', 'localhost:8000'], { cwd: public })
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -27,6 +28,6 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
-  php.kill()
+  server.kill()
   app.quit()
 })
