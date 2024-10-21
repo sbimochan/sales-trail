@@ -98,7 +98,7 @@ function Print() {
             <div className="w-full">
               <Textarea
                 rows="1"
-                className="text-md resize-none overflow-y-hidden rounded-none border-0 shadow-none focus-visible:ring-0"
+                className="text-md resize-none overflow-y-hidden rounded-none border-0 py-0 shadow-none focus-visible:ring-0"
               >
                 {data.data.description || '#Cash'}
               </Textarea>
@@ -111,22 +111,24 @@ function Print() {
             {isQuotation ? 'Return' : 'Estimate'}
           </h5>
 
-          <Table className="border">
+          <Table className="text-md border">
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[50px] border border-black text-black">S.N.</TableHead>
-                <TableHead className="w-full border border-black text-left text-black">
+                <TableHead className="h-0 w-[50px] border border-black py-0 text-black">
+                  S.N.
+                </TableHead>
+                <TableHead className="h-0 w-full border border-black py-0 text-left text-black">
                   Particulars
                 </TableHead>
-                <TableHead className="min-w-[60px] border border-black text-right text-black">
+                <TableHead className="h-0 min-w-[60px] border border-black py-0 text-right text-black">
                   Qty
                 </TableHead>
-                <TableHead className="min-w-[60px] border border-black text-right text-black">
+                <TableHead className="h-0 min-w-[60px] border border-black py-0 text-right text-black">
                   Unit
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'min-w-[70px] border border-black text-right text-black',
+                    'h-0 min-w-[70px] border border-black py-0 text-right text-black',
                     isQuotation ? 'hidden' : '',
                   )}
                 >
@@ -134,7 +136,7 @@ function Print() {
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'min-w-[70px] border border-black text-right text-black',
+                    'h-0 min-w-[70px] border border-black py-0 text-right text-black',
                     isQuotation || !isDiscount ? 'hidden' : '',
                   )}
                 >
@@ -142,7 +144,7 @@ function Print() {
                 </TableHead>
                 <TableHead
                   className={cn(
-                    'min-w-[70px] border border-black text-right text-black',
+                    'h-0 min-w-[70px] border border-black py-0 text-right text-black',
                     isQuotation ? 'hidden' : '',
                   )}
                 >
@@ -230,7 +232,7 @@ function Print() {
                 </TableRow>
               </TableFooter>
             ) : (
-              <TableFooter>
+              <TableFooter className="text-md">
                 <TableRow>
                   <TableCell className="border border-black text-left" rowSpan={3} colSpan={2}>
                     <div className="w-[50px] rotate-[270deg] text-right">{data.data.id}</div>
@@ -241,29 +243,29 @@ function Print() {
                   >
                     Total
                   </TableCell>
-                  <TableCell className="border border-black text-right">
+                  <TableCell className="h-0 border border-black py-0 text-right">
                     {formatter.format(data.data.total)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell
-                    className="border border-black text-right"
+                    className="h-0 border border-black py-0 text-right"
                     colSpan={isDiscount ? 4 : 3}
                   >
                     Adj
                   </TableCell>
-                  <TableCell className="border border-black text-right">
+                  <TableCell className="h-0 border border-black py-0 text-right">
                     {formatter.format(data.data.discount)}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell
-                    className="border border-black text-right font-medium"
+                    className="h-0 border border-black py-0 text-right font-medium"
                     colSpan={isDiscount ? 4 : 3}
                   >
                     Grand Total
                   </TableCell>
-                  <TableCell className="border border-black text-right font-medium">
+                  <TableCell className="h-0 border border-black py-0 text-right font-medium">
                     {formatter.format(data.data.grand_total)}
                   </TableCell>
                 </TableRow>
