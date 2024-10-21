@@ -60,7 +60,7 @@ function Print() {
   }
 
   const formatter = Intl.NumberFormat('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const placeholder = data.data.refund_items.length >= 21 ? 0 : 21 - data.data.refund_items.length;
+  const placeholder = data.data.refund_items.length >= 23 ? 0 : 23 - data.data.refund_items.length;
 
   return (
     <>
@@ -160,7 +160,7 @@ function Print() {
                   <TableCell className="border-x border-y-0 border-x-black py-1 text-left font-medium">
                     {refund.item.name}
                   </TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
+                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right font-bold">
                     {refund.quantity}
                   </TableCell>
                   <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
