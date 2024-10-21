@@ -238,7 +238,7 @@ function Print() {
                     <div className="w-[50px] rotate-[270deg] text-right">{data.data.id}</div>
                   </TableCell>
                   <TableCell
-                    className="border border-black text-right"
+                    className="h-0 border border-black py-0 text-right"
                     colSpan={isDiscount ? 4 : 3}
                   >
                     Total
