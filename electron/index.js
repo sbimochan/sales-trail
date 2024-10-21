@@ -11,10 +11,28 @@ function createWindow() {
     minWidth: 1024,
     minHeight: 768,
     icon: 'icon.png',
+    autoHideMenuBar: true,
+    show: false
+  })
+
+  const splash = new BrowserWindow({
+    width: 310,
+    height: 150,
+    resizable: false,
+    frame: false,
+    show: true,
     autoHideMenuBar: true
   })
 
+  splash.loadFile('./assets/splash.html')
+  splash.show()
+
   win.loadURL('http://localhost:8000')
+
+  win.once('ready-to-show', () => {
+    splash.close()
+    win.show()
+  })
 }
 
 app.whenReady().then(() => {
