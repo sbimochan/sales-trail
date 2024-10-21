@@ -60,7 +60,7 @@ function Print() {
   }
 
   const formatter = Intl.NumberFormat('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const placeholder = data.data.refund_items.length >= 23 ? 0 : 23 - data.data.refund_items.length;
+  const placeholder = data.data.refund_items.length >= 25 ? 0 : 25 - data.data.refund_items.length;
 
   return (
     <>
