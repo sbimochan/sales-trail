@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback, useLayoutEffect } from 'react';
 
 import {
   Command,
@@ -17,7 +17,15 @@ import { CheckIcon, CaretSortIcon } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
 
 function Combobox({ index, products = {}, field, onSelect = () => {}, initOpen = false }) {
+  const ref = useRef(null);
+  const [value, setValue] = useState('');
   const [open, setOpen] = useState(initOpen);
+
+  const resetScroll = useCallback(() => {
+    ref.current?.scroll({ top: 0 });
+  }, [ref]);
+
+  useLayoutEffect(resetScroll, [value]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -42,8 +50,8 @@ function Combobox({ index, products = {}, field, onSelect = () => {}, initOpen =
 
       <PopoverContent className="w-[328px] p-0">
         <Command>
-          <CommandInput placeholder="Search item..." className="h-9" />
-          <CommandList>
+          <CommandInput onValueChange={setValue} placeholder="Search item..." className="h-9" />
+          <CommandList ref={ref}>
             <CommandEmpty>No Item found.</CommandEmpty>
             <CommandGroup>
               {products.data.data.map((product) => (

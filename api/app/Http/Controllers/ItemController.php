@@ -24,6 +24,7 @@ class ItemController extends Controller
         return Item::where('name', 'like', "%$q%")
             ->orWhere('description', 'like', "%$q%")
             ->orWhere('price', 'like', "%$q%")
+            ->orderBy('name', 'asc')
             ->paginate($limit, ['*'], 'page', $page);
     }
 
