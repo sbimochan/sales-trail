@@ -21,7 +21,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true
     },
-    icon: './assets/incon.png'
+    icon: './assets/icon.png'
   })
 
   splash.loadFile('./assets/splash.html')
