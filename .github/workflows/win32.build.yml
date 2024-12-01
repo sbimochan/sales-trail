@@ -44,6 +44,11 @@ jobs:
 
           Set-Content composer.bat '@php "%~dp0composer.phar" %*'
 
+      - name: Install Node.js Dependencies (electron)
+        run: |
+          cd electron
+          npm install
+
       - name: Install Node.js Dependencies (app)
         run: |
           cd app
@@ -57,4 +62,24 @@ jobs:
       - name: Build app
         run: |
           cd app
+          npm run build
+
+      - name: Build server
+        run: |
+          Copy-Item -Path "api\.env.example" -Destination "api\.env"
+
+          Remove-Item -Path "api\resources\views\welcome.blade.php" -Force
+          Copy-Item "app\dist\index.html" -Destination "api\resources\views\welcome.blade.php" -Force
+
+          Get-ChildItem -Path 'api\public' | Where-Object { $_.Name -notin @('robots.txt', '.htaccess', 'index.php') } | Remove-Item -Recurse -Force
+
+          Copy-Item -Path 'app\dist\*' -Destination 'api\public' -Recurse -Force
+
+          cd api
+          php artisan key:generate
+          php artisan migrate:refresh
+
+      - name: Build electron
+        run: |
+          cd electron
           npm run build
