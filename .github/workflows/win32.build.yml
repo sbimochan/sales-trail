@@ -26,15 +26,15 @@ jobs:
       - name: Set up PHP 8.3
         run: |
           $URI = "https://github.com/NativePHP/php-bin/raw/refs/heads/main/bin/win/x64/php-8.3.zip"
-          $OutFile = "electron/php-bin/php-8.3.zip"
-          $PHP = "electron/php-bin"
+
+          $OutFile = "$(pwd)\electron\php-bin\php-8.3.zip"
+          $PHP = "$(pwd)\electron\php-bin"
 
           Invoke-WebRequest -Uri $URI -OutFile $OutFile
           Expand-Archive -Path $OutFile -DestinationPath $PHP -Force
           Remove-Item -Path $OutFile -Force
 
-          $Env:PATH = "$Env:PATH;$(pwd)\$PHP"
-          php -v
+          echo "$PHP" >> $Env:GITHUB_PATH
 
       - name: Set up Composer
         run: |
