@@ -226,17 +226,44 @@ function Print() {
             {isQuotation ? (
               <TableFooter>
                 <TableRow>
-                  <TableCell className="border border-black text-left" colSpan={4}>
+                  <TableCell className="border border-black text-left" colSpan={1}>
                     <div className="w-[50px] text-right">{data.data.id}</div>
+                  </TableCell>
+
+                  <TableCell className="border border-black text-right" colSpan={3}>
+                    <div className="w-full">
+                      <Textarea
+                        rows="1"
+                        className="text-md resize-none overflow-y-hidden rounded-none border-0 p-0 font-normal shadow-none focus-visible:ring-0"
+                      >
+                        {data.data.description || ''}
+                      </Textarea>
+                    </div>
                   </TableCell>
                 </TableRow>
               </TableFooter>
             ) : (
               <TableFooter className="text-md">
                 <TableRow>
-                  <TableCell className="border border-black text-left" rowSpan={3} colSpan={2}>
+                  <TableCell className="border border-black text-left" rowSpan={3} colSpan={1}>
                     <div className="w-[50px] rotate-[270deg] text-right">{data.data.id}</div>
                   </TableCell>
+
+                  <TableCell
+                    className="h-0 border border-black py-0 text-right"
+                    colSpan={1}
+                    rowSpan={3}
+                  >
+                    <div className="w-full">
+                      <Textarea
+                        rows="1"
+                        className="text-md resize-none overflow-y-hidden rounded-none border-0 p-0 font-normal shadow-none focus-visible:ring-0"
+                      >
+                        {data.data.description || ''}
+                      </Textarea>
+                    </div>
+                  </TableCell>
+
                   <TableCell
                     className="h-0 border border-black py-0 text-right"
                     colSpan={isDiscount ? 4 : 3}
