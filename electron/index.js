@@ -6,7 +6,29 @@ const public = join(__dirname, 'api', 'public')
 const php = join(__dirname, 'php-bin', 'php')
 const server = spawn(php, ['-S', 'localhost:8000'], { cwd: public })
 
+let splash;
+
+app.disableHardwareAcceleration();
+
 function createWindow() {
+  splash = new BrowserWindow({
+    width: 620,
+    height: 300,
+    resizable: false,
+    frame: false,
+    autoHideMenuBar: true,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    },
+  })
+
+  splash.loadFile('./assets/splash.html')
+
+  splash.once('ready-to-show', () => {
+    splash.show();
+  });
+
   const win = new BrowserWindow({
     minWidth: 1024,
     minHeight: 768,
@@ -14,18 +36,6 @@ function createWindow() {
     autoHideMenuBar: true,
     show: false
   })
-
-  const splash = new BrowserWindow({
-    width: 310,
-    height: 150,
-    resizable: false,
-    frame: false,
-    show: true,
-    autoHideMenuBar: true
-  })
-
-  splash.loadFile('./assets/splash.html')
-  splash.show()
 
   win.loadURL('http://localhost:8000')
 
