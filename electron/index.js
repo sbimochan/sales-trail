@@ -1,16 +1,20 @@
+const php = require('./php')
 const { join } = require('path')
 const { spawn } = require('child_process')
 const { app, BrowserWindow } = require('electron/main')
 
-const public = join(__dirname, 'api', 'public')
-const php = join(__dirname, 'php-bin', 'php')
-const server = spawn(php, ['-S', 'localhost:8000'], { cwd: public })
+const isWin32 = process.platform === 'win32';
+
+const server = spawn(php, ['-S', 'localhost:8000'], {
+  shell: isWin32,
+  cwd: join(__dirname, 'api', 'public'),
+  stdio: [null, process.stdout, process.stderr]
+})
 
 let splash;
-
 app.disableHardwareAcceleration();
 
-function createWindow() {
+const createWindow = () => {
   splash = new BrowserWindow({
     width: 620,
     height: 300,
