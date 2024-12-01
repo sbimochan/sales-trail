@@ -75,6 +75,8 @@ jobs:
 
           Copy-Item -Path 'app\dist\*' -Destination 'api\public' -Recurse -Force
 
+          New-Item 'api\database\database.sqlite' -type file
+
           cd api
           php artisan key:generate
           php artisan migrate:refresh
@@ -83,3 +85,10 @@ jobs:
         run: |
           cd electron
           npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: sales-trail-win32
+          path: |
+            electron\dist\win-unpacked\
