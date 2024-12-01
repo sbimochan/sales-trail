@@ -84,11 +84,12 @@ jobs:
 
       - name: Build electron
         run: |
-          rm electron/api
-          mv api electron/
           cd electron
           npm run build
-          ls dist/win-unpacked/resources/app/api
+
+      - name: Copy Storage
+        run: |
+          cp -R api/storage electron/dist/win-unpacked/resources/app/api/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -96,4 +97,4 @@ jobs:
           name: sales-trail-win32
           include-hidden-files: true
           path: |
-            electron/dist/win-unpacked/**
+            electron/dist/win-unpacked
