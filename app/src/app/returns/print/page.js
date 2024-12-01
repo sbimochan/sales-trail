@@ -100,7 +100,7 @@ function Print() {
                 rows="1"
                 className="text-md resize-none overflow-y-hidden rounded-none border-0 py-0 shadow-none focus-visible:ring-0"
               >
-                {data.data.description || '#Cash'}
+                {data.data.title || '#Cash'}
               </Textarea>
             </div>
 
