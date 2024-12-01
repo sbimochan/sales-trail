@@ -86,6 +86,7 @@ jobs:
         run: |
           cd electron
           npm run build
+          ls dist/win-unpacked/resources/app/api
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
