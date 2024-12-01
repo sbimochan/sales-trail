@@ -3,5 +3,5 @@ module.exports = {
   productName: 'Sales Trail',
   asar: false,
   files: ['php-bin', 'api', 'assets', 'index.js'],
-  icon: './icon.png'
+  icon: './assets/icon.png'
 }
