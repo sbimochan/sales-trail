@@ -12,7 +12,7 @@ class Refund extends Model
     use HasFactory, SoftDeletes;
 
     protected $with = ['refund_items'];
-    protected $fillable = ["date", "description", "total", "discount", "grand_total"];
+    protected $fillable = ["date", "title", "description", "total", "discount", "grand_total"];
 
     public function refund_items(): HasMany
     {

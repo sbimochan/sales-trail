@@ -25,6 +25,7 @@ class SaleController extends Controller
         return Sale::orderBy('created_at', 'desc')
             ->where('date', 'like', "%$q%")
             ->orWhere('description', 'like', "%$q%")
+            ->orWhere('title', 'like', "%$q%")
             ->paginate($limit, ['*'], 'page', $page);
     }
 
@@ -58,6 +59,7 @@ class SaleController extends Controller
 
             $sale = Sale::create([
                 'date' => $data['date'],
+                'title' => $data['title'],
                 'description' => $data['description'],
                 'total' => $total,
                 'discount' => $discount,
@@ -116,6 +118,7 @@ class SaleController extends Controller
 
             $sale->update([
                 'date' => $data['date'],
+                'title' => $data['title'],
                 'description' => $data['description'],
                 'total' => $total,
                 'discount' => $discount,

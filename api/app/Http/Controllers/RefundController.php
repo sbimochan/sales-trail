@@ -25,6 +25,7 @@ class RefundController extends Controller
         return Refund::orderBy('created_at', 'desc')
             ->where('date', 'like', "%$q%")
             ->orWhere('description', 'like', "%$q%")
+            ->orWhere('title', 'like', "%$q%")
             ->paginate($limit, ['*'], 'page', $page);
     }
 
@@ -58,6 +59,7 @@ class RefundController extends Controller
 
             $refund = Refund::create([
                 'date' => $data['date'],
+                'title' => $data['title'],
                 'description' => $data['description'],
                 'total' => $total,
                 'discount' => $discount,
@@ -116,6 +118,7 @@ class RefundController extends Controller
 
             $refund->update([
                 'date' => $data['date'],
+                'title' => $data['title'],
                 'description' => $data['description'],
                 'total' => $total,
                 'discount' => $discount,

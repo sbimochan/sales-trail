@@ -24,6 +24,7 @@ class StoreSaleRequest extends FormRequest
         return [
             'date' => 'required|string',
             'discount' => 'required|numeric',
+            'title' => 'present|string|nullable',
             'description' => 'present|string|nullable',
 
             'items' => 'array|required|min:1',
