@@ -93,4 +93,4 @@ jobs:
           name: sales-trail-win32
           include-hidden-files: true
           path: |
-            electron/dist/win-unpacked
+            electron/dist/win-unpacked/**
