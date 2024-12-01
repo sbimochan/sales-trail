@@ -21,6 +21,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true
     },
+    icon: './assets/incon.png'
   })
 
   splash.loadFile('./assets/splash.html')
@@ -32,9 +33,9 @@ function createWindow() {
   const win = new BrowserWindow({
     minWidth: 1024,
     minHeight: 768,
-    icon: 'icon.png',
     autoHideMenuBar: true,
-    show: false
+    show: false,
+    icon: './assets/icon.png'
   })
 
   win.loadURL('http://localhost:8000')
