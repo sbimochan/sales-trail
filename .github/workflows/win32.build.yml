@@ -87,10 +87,6 @@ jobs:
           cd electron
           npm run build
 
-      - name: Copy Storage
-        run: |
-          cp -R api/storage electron/dist/win-unpacked/resources/app/api/
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
