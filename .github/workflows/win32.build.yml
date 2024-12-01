@@ -80,6 +80,7 @@ jobs:
           cd api
           php artisan key:generate
           php artisan migrate:refresh
+          php artisan db:seed --class=ItemSeeder
 
       - name: Build electron
         run: |
