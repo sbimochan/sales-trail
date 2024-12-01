@@ -138,9 +138,9 @@ function Sale() {
         cell: ({ row }) => <div>{row.getValue('date')}</div>,
       },
       {
-        accessorKey: 'description',
-        header: 'Description',
-        cell: ({ row }) => <div>{row.getValue('description')}</div>,
+        accessorKey: 'title',
+        header: 'Title',
+        cell: ({ row }) => <div>{row.getValue('title')}</div>,
       },
       {
         id: 'view',
