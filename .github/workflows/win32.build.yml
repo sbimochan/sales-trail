@@ -28,8 +28,8 @@ jobs:
           Expand-Archive -Path $OutFile -DestinationPath $PHP -Force
           Remove-Item -Path $OutFile -Force
 
-          $php = "electron/php-bin/php.exe"
-          echo "::add-path::$php"
+          $Env:PATH = "$Env:PATH;$(pwd)\$PHP"
+          php -v
 
       - name: Set up Composer
         run: |
@@ -38,7 +38,6 @@ jobs:
           php -r "unlink('composer-setup.php');"
 
           Set-Content composer.bat '@php "%~dp0composer.phar" %*'
-          echo "::add-path::electron/composer.bat"
 
       - name: Install Node.js Dependencies (app)
         run: |
