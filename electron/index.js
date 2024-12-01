@@ -3,12 +3,8 @@ const { join } = require('path')
 const { spawn } = require('child_process')
 const { app, BrowserWindow } = require('electron/main')
 
-const isWin32 = process.platform === 'win32';
-
 const server = spawn(php, ['-S', 'localhost:8000'], {
-  shell: isWin32,
-  cwd: join(__dirname, 'api', 'public'),
-  stdio: [null, process.stdout, process.stderr]
+  cwd: join(__dirname, 'api', 'public')
 })
 
 let splash;
