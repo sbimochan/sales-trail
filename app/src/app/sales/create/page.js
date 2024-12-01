@@ -65,6 +65,7 @@ const DEFAULT_ITEM = {
 
 const schema = z.object({
   discount: z.coerce.number(),
+  title: z.string().min(0).nullable(),
   description: z.string().min(0).nullable(),
   date: z.string({ required_error: 'A date of sale is required.' }),
   items: z.array(
@@ -89,6 +90,7 @@ function Sale() {
     defaultValues: {
       date: NepaliDate.getNepaliDate(),
       discount: 0,
+      title: '',
       description: '',
       items: [DEFAULT_ITEM],
     },
@@ -200,6 +202,21 @@ function Sale() {
                     onChange={field.onChange}
                     options={{ calenderLocale: 'en', valueLocale: 'en' }}
                   />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
+
+                  <FormControl>
+                    <Textarea className="shadow-none" type="text" placeholder="#Cash" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

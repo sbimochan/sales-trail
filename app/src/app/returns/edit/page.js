@@ -66,6 +66,7 @@ const DEFAULT_ITEM = {
 const schema = z.object({
   id: z.coerce.number(),
   discount: z.coerce.number(),
+  title: z.string().min(0).nullable(),
   description: z.string().min(0).nullable(),
   date: z.string({ required_error: 'A date of return is required.' }),
   items: z.array(
@@ -95,6 +96,7 @@ function Return() {
       id: 0,
       date: NepaliDate.getNepaliDate(),
       discount: 0,
+      title: '',
       description: '',
       items: [DEFAULT_ITEM],
     },
@@ -137,6 +139,7 @@ function Return() {
     const refund = data.data;
 
     refund.items = refund.refund_items;
+    refund.title = refund.title || '';
     refund.description = refund.description || '';
 
     reset(refund);
@@ -228,6 +231,21 @@ function Return() {
                     onChange={field.onChange}
                     options={{ calenderLocale: 'en', valueLocale: 'en' }}
                   />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
+
+                  <FormControl>
+                    <Textarea className="shadow-none" type="text" placeholder="#Cash" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

@@ -18,14 +18,14 @@ export async function deleteSale({ id }) {
   return data;
 }
 
-export async function createSale({ description, items = [], discount = 0, date }) {
-  const data = await axios.post('/sales', { description, items, discount, date });
+export async function createSale({ description, items = [], discount = 0, date, title }) {
+  const data = await axios.post('/sales', { description, items, discount, date, title });
 
   return data;
 }
 
-export async function updateSale({ description, items = [], discount = 0, date, id }) {
-  const data = await axios.put(`/sales/${id}`, { description, items, discount, date });
+export async function updateSale({ description, items = [], discount = 0, date, id, title }) {
+  const data = await axios.put(`/sales/${id}`, { description, items, discount, date, title });
 
   return data;
 }
