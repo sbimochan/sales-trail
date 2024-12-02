@@ -155,7 +155,7 @@ function Print() {
 
             <TableBody className="border border-black">
               {data?.data?.refund_items?.map((refund, index) => (
-                <TableRow key={index}>
+                <TableRow className="border-b-gray-400" key={index}>
                   <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
                     {index + 1}
                   </TableCell>
