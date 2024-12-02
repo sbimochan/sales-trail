@@ -99,7 +99,7 @@ function Print() {
             <div className="w-full">
               <Textarea
                 rows="1"
-                className="text-md resize-none overflow-y-hidden rounded-none border-0 py-0 shadow-none focus-visible:ring-0"
+                className="text-md resize-none overflow-y-hidden rounded-none border-0 py-0 font-bold underline shadow-none focus-visible:ring-0"
               >
                 {data.data.title || '#Cash'}
               </Textarea>
@@ -156,7 +156,7 @@ function Print() {
 
             <TableBody className="border border-black">
               {data?.data?.sale_items?.map((sale, index) => (
-                <TableRow key={index} className="border-0">
+                <TableRow key={index}>
                   <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
                     {index + 1}
                   </TableCell>
