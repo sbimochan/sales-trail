@@ -42,12 +42,10 @@ const createWindow = () => {
 
   server = spawn(php, ['-S', 'localhost:8000'], { cwd: join(__dirname, 'api', 'public') })
 
-  server.stderr.on('data', (data) => console.log(data.toString()))
-  server.stderr.on('data', (data) => console.log(data.toString()))
+  server.stdout.on('data', (data) => console.log(data.toString()))
+  server.stderr.on('data', (data) => console.error(data.toString()))
 
-  server.on('spawn', () => {
-    win.loadURL('http://localhost:8000')
-  })
+  server.on('spawn', () => setTimeout(() => win.loadURL('http://localhost:8000'), 1000))
 }
 
 app.whenReady().then(() => {
