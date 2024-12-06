@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      padding: {
+        '3px': '3px',
+      },
       screens: {
         print: { raw: 'print' },
         screen: { raw: 'screen' },

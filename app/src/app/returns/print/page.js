@@ -156,21 +156,21 @@ function Print() {
             <TableBody className="border border-black">
               {data?.data?.refund_items?.map((refund, index) => (
                 <TableRow className="border-b-gray-400" key={index}>
-                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
+                  <TableCell className="whitespace-nowrap border-x border-y-0 border-x-black pb-[3px] pt-1 text-right">
                     {index + 1}
                   </TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black py-1 text-left font-medium">
+                  <TableCell className="whitespace-nowrap border-x border-y-0 border-x-black pb-[3px] pt-1 text-left font-medium">
                     {refund.item.name}
                   </TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right font-bold">
+                  <TableCell className="whitespace-nowrap border-x border-y-0 border-x-black pb-[3px] pt-1 text-right font-bold">
                     {refund.quantity}
                   </TableCell>
-                  <TableCell className="border-x border-y-0 border-x-black py-1 text-right">
+                  <TableCell className="whitespace-nowrap border-x border-y-0 border-x-black pb-[3px] pt-1 text-right">
                     {refund.item.unit.name}
                   </TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black py-1 text-right',
+                      'whitespace-nowrap border-x border-y-0 border-x-black pb-[3px] pt-1 text-right',
                       isQuotation ? 'hidden' : '',
                     )}
                   >
@@ -178,7 +178,7 @@ function Print() {
                   </TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black py-1 text-right',
+                      'whitespace-nowrap border-x border-y-0 border-x-black pb-[3px] pt-1 text-right',
                       isQuotation || !isDiscount ? 'hidden' : '',
                     )}
                   >
@@ -186,7 +186,7 @@ function Print() {
                   </TableCell>
                   <TableCell
                     className={cn(
-                      'border-x border-y-0 border-x-black py-1 text-right',
+                      'whitespace-nowrap border-x border-y-0 border-x-black pb-[3px] pt-1 text-right',
                       isQuotation ? 'hidden' : '',
                     )}
                   >
