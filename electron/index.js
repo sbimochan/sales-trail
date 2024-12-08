@@ -58,7 +58,18 @@ app.whenReady().then(() => {
   })
 })
 
-app.on('window-all-closed', () => {
-  server?.kill()
-  app.quit()
-})
+const quit = () => {
+  try {
+    server.kill('SIGTERM')
+
+    server.on('close', () => {
+      app.quit()
+    })
+  } catch (error) {
+    console.error(error)
+    app.quit()
+  }
+}
+
+app.on('before-quit', quit)
+app.on('window-all-closed', quit)
