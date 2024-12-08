@@ -25,6 +25,7 @@ class RefundController extends Controller
         return Refund::orderBy('created_at', 'desc')
             ->where('date', 'like', "%$q%")
             ->orWhere('description', 'like', "%$q%")
+            ->orWhere('id', 'like', "%$q%")
             ->orWhere('title', 'like', "%$q%")
             ->paginate($limit, ['*'], 'page', $page);
     }
