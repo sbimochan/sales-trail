@@ -1,7 +1,6 @@
 # Sales Trail
 The project is a lightweight system designed to manage business operations related to sales, returns, items, and units, with the ability to generate printed reports or receipts. It focuses solely on transactional data and item records, excluding detailed stock management or financial accounting.
 
-
 | Login | Items | Units |
 |-|-|-|
 |![login](https://github.com/user-attachments/assets/28b4a86e-b153-43ad-8a38-90e68278e44b)|![items](https://github.com/user-attachments/assets/b319aded-b537-4b4b-846b-2a748bc02d4f)|![units](https://github.com/user-attachments/assets/7dee0cf3-c6cf-410d-976f-57cc42c7fdc4)
