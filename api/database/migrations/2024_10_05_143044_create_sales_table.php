@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('discount', 15, 2);
             $table->double('grand_total', 15, 2);
             $table->text('description')->nullable();
+            $table->foreignId('account_id')->default(1)->constrained();
             $table->softDeletes();
             $table->timestamps();
         });
