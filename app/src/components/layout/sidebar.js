@@ -9,6 +9,7 @@ import {
   FilePlusIcon,
   FileMinusIcon,
   RulerSquareIcon,
+  IdCardIcon,
   ReloadIcon,
 } from '@radix-ui/react-icons';
 
@@ -24,6 +25,11 @@ const items = [
     name: 'Units',
     Icon: RulerSquareIcon,
     href: '/units',
+  },
+  {
+    name: 'Accounts',
+    Icon: IdCardIcon,
+    href: '/accounts',
   },
   {
     name: 'Items',
