@@ -11,6 +11,7 @@ import {
   RulerSquareIcon,
   IdCardIcon,
   ReloadIcon,
+  GearIcon,
 } from '@radix-ui/react-icons';
 
 import Link from 'next/link';
@@ -45,6 +46,11 @@ const items = [
     name: 'Returns',
     Icon: FileMinusIcon,
     href: '/returns',
+  },
+  {
+    name: 'Settings',
+    Icon: GearIcon,
+    href: '/settings',
   },
 ];
 
