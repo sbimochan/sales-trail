@@ -25,7 +25,8 @@ class StoreItemRequest extends FormRequest
             'name' => 'required|unique:items|max:255',
             'description' => 'present|string|nullable',
             'price' => 'required|numeric|min:0',
-            'unit_id' => 'required|exists:units,id'
+            'unit_id' => 'required|exists:units,id',
+            'category_id' => 'required|exists:categories,id',
         ];
     }
 }

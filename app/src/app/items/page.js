@@ -139,6 +139,11 @@ function Item() {
         cell: ({ row }) => <div>{row.getValue('name')}</div>,
       },
       {
+        accessorKey: 'category.name',
+        header: 'Category',
+        cell: ({row}) => <div>{row.original.category.name}</div>,
+      },
+      {
         accessorKey: 'description',
         header: 'Description',
         cell: ({ row }) => <div>{row.getValue('description')}</div>,
@@ -146,7 +151,7 @@ function Item() {
       {
         accessorKey: 'unit',
         header: 'Unit',
-        cell: ({ row }) => <div>{row.original?.unit?.name}</div>,
+        cell: ({ row }) => <div>{row.original.unit.name}</div>,
       },
       {
         accessorKey: 'price',
