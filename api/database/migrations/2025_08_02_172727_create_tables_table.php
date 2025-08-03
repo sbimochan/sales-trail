@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('is_reserved')->default(false);
             $table->timestamps();
         });
     }
