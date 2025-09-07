@@ -112,7 +112,7 @@ function Item() {
       const limit = pagination.pageSize;
       const page = pagination.pageIndex + 1;
 
-      return getItems({ page, limit, query: debouncedQuery });
+      return getItems({ page, limit, query: debouncedQuery, category_type: 'income' });
     },
   });
 
